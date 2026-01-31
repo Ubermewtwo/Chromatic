@@ -12,8 +12,8 @@ namespace Chromatic
 
     public class ExampleMaskBehaviour : MonoBehaviour
     {
-        [SerializeField] private SpriteRenderer outerRingSprite;
-        [SerializeField] private SpriteRenderer circleSprite;
+        [SerializeField] private Renderer outerRingRenderer;
+        [SerializeField] private Renderer circleRenderer;
         [SerializeField] private MaskColor maskColor;
         [SerializeField] private float maskEffectSpeed = 2f;
         [SerializeField] private float maskEffectBorder = 0.1f;
@@ -26,11 +26,8 @@ namespace Chromatic
 
         private void Awake()
         {
-            _outerRingMaterial = outerRingSprite.material;
-            _circleMaterial = circleSprite.material;
-
-            _outerRingMaterial.SetFloat("_Border", maskEffectBorder);
-            _outerRingMaterial.SetInteger("_ColorMask", (int)maskColor);
+            _outerRingMaterial = outerRingRenderer.material;
+            _circleMaterial = circleRenderer.material;
 
             Restart();
         }
@@ -43,20 +40,31 @@ namespace Chromatic
             if (Input.GetKeyDown(KeyCode.M))
                 _hasStarted = true;
 
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.M) && false)
+                UnityEditor.EditorApplication.isPaused = true;
+#endif
+
             if (_hasStarted)
-            {
-                _outerRingMaterial.SetFloat("_Distance", _radius);
-                _circleMaterial.SetFloat("_Distance", _radius - maskEffectBorder);
-                _radius += Time.deltaTime * maskEffectSpeed;
-            }
+                InvokeMask();
         }
 
         private void Restart()
         {
+            _outerRingMaterial.SetFloat("_Border", maskEffectBorder);
+            _outerRingMaterial.SetInteger("_ColorMasking", (int)maskColor);
+
             _hasStarted = false;
             _radius = 0.0f;
             _outerRingMaterial.SetFloat("_Distance", 0.0f);
             _circleMaterial.SetFloat("_Distance", 0.0f);
+        }
+
+        private void InvokeMask()
+        {
+            _outerRingMaterial.SetFloat("_Distance", _radius);
+            _circleMaterial.SetFloat("_Distance", _radius - maskEffectBorder);
+            _radius += Time.deltaTime * maskEffectSpeed;
         }
     }
 }

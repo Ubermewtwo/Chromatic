@@ -16,7 +16,7 @@ Varyings CommonVertex(in Attributes input)
 float4 OuterRingFragment(in Varyings input) : SV_Target
 {
 	float2 minusOneToOneCoords = input.uv * 2 - 1;
-	float4 color = _BaseColor;
+	float4 color = float4(1, 1, 1, 1);
 
 	const float sqrtTwo = sqrt(2);
 	float dist = length(minusOneToOneCoords);

@@ -5,7 +5,6 @@ TEXTURE2D(_MainTex);
 SAMPLER(sampler_MainTex);
 
 CBUFFER_START(UnityPerMaterial)
-    float4 _BaseColor;
     float4 _MainTex_ST;
     float _Distance;
     float _Border;

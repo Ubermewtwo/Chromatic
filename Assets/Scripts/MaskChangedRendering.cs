@@ -5,12 +5,15 @@ namespace Chromatic
     [RequireComponent(typeof(Camera))]
     public class MaskChangedRendering : MonoBehaviour
     {
-        [SerializeField] private RenderTexture renderTexture;
+        [SerializeField] private Camera renderCamera;
 
-        private void OnRenderImage(RenderTexture source, RenderTexture destination)
+        private RenderTexture _renderTexture;
+
+        private void Awake()
         {
-            Graphics.Blit(source, renderTexture);
-            Graphics.Blit(source, destination);
+            if (!renderCamera) renderCamera = GetComponent<Camera>();
+
+            _renderTexture = renderCamera.targetTexture;
         }
     }
 }

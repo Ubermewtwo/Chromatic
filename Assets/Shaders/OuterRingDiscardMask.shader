@@ -2,12 +2,10 @@ Shader "CustomShaders/OuterRingDiscardMask"
 {
     Properties
     {
-        [MainColor] _BaseColor("Base Color", Color) = (1, 1, 1, 1)
-        _MainTex ("Texture", 2D) = "white" {}
+        [MainTexture] _MainTex ("Texture", 2D) = "white" {}
         _Distance ("Distance", Range(0, 1)) = 1
-        [Toggle] _IsRing ("Is Ring", Float) = 1
         _Border ("Border", Range(0, 1)) = 0.1
-        [Enum(R, 0, G, 1, B, 2, None, 3)] _ColorMasking ("Color Masking", Int) = 3
+        [Enum(R, 0, G, 1, B, 2, None, 3)] _ColorMasking ("Color Masking", Integer) = 3
     }
     SubShader
     {

@@ -2,7 +2,6 @@ Shader "CustomShaders/MaskNewColor"
 {
     Properties
     {
-        [MainColor] _BaseColor("Base Color", Color) = (1, 1, 1, 1)
         [MainTexture] _MainTex ("Texture", 2D) = "white" {}
         _Distance ("Distance", Range(0, 1)) = 1
         _Border ("Border", Range(0, 1)) = 0.1
