@@ -6,7 +6,9 @@ CBUFFER_START(UnityPerMaterial)
     sampler2D _MainTex;
     float4 _MainTex_ST;
     float _Distance;
-    bool _DiscardFragments;
+    bool _IsRing;
+    float _Border;
+    int _ColorMask;
 CBUFFER_END
 
 struct Attributes

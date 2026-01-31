@@ -2,20 +2,25 @@ Shader "CustomShaders/DiscardMask"
 {
     Properties
     {
-        _BaseColor("Base Color", Color) = (1, 1, 1, 1)
+        [MainColor] _BaseColor("Base Color", Color) = (1, 1, 1, 1)
         _MainTex ("Texture", 2D) = "white" {}
         _Distance ("Distance", Range(0, 1)) = 1
-        [Toggle] _DiscardFragments ("Discard Pixels", Float) = 1
+        [Toggle] _IsRing ("Is Ring", Float) = 1
+        _Border ("Border", Range(0, 1)) = 0.1
+        [Enum(R, 0, G, 1, B, 2, None, 3)] _ColorMask ("Color Masking", Int) = 3
     }
     SubShader
     {
         Tags
         {
-            "RenderType" = "Opaque"
-            "Queue" = "Geometry"
+            "RenderType" = "Transparent"
+            "Queue" = "Transparent"
             "RenderPipeline" = "UniversalRenderPipeline"
         }
         LOD 100
+
+        Blend DstColor Zero
+        ZWrite Off
 
         HLSLINCLUDE
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
