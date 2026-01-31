@@ -10,17 +10,11 @@ namespace Chromatic
         public MaskColor MaskColor { get; set; }
 
         private Camera _mainCamera;
-        private RenderTexture _renderTexture;
 
         private void Awake()
         {
             if (!renderCamera) renderCamera = GetComponent<Camera>();
 
-            _renderTexture = renderCamera.targetTexture;
-        }
-
-        private void Start()
-        {
             _mainCamera = Camera.main;
         }
 
