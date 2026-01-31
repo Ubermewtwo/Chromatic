@@ -11,6 +11,11 @@ public class PlayerSpritesData : ScriptableObject
     public Sprite JumpSprite;
     public Sprite FallSprite;
     public Sprite GrabSprite;
+    public Sprite GreenAttackSprite;
+    public List<Sprite> RedAttackTransformationSprites;
+    public float RedAttackTransformationFrameRate;
+    public List<Sprite> BlueAttackSprites;
+    public float BlueAttackFrameRate;
 
     public Sprite GetSprite(PlayerState state, float time)
     {
@@ -28,6 +33,16 @@ public class PlayerSpritesData : ScriptableObject
                 return FallSprite;
             case PlayerState.Grab:
                 return GrabSprite;
+            case PlayerState.GreenAttack:
+                return GreenAttackSprite;
+            case PlayerState.RedAttack:
+                int redAttackIndex = (int)(time * RedAttackTransformationFrameRate);
+                if (redAttackIndex >= RedAttackTransformationSprites.Count)
+                    redAttackIndex = RedAttackTransformationSprites.Count - 1;
+                return RedAttackTransformationSprites[redAttackIndex];
+            case PlayerState.BlueAttack:
+                int blueAttackIndex = (int)(time * BlueAttackFrameRate) % BlueAttackSprites.Count;
+                return BlueAttackSprites[blueAttackIndex];
         }
 
         Debug.LogError("Invalid PlayerState: " + state);
@@ -40,6 +55,9 @@ public class PlayerSpritesData : ScriptableObject
         Walk,
         Jump,
         Fall,
-        Grab
+        Grab,
+        GreenAttack,
+        RedAttack,
+        BlueAttack
     }
 }
