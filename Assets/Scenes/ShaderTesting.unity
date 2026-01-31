@@ -875,6 +875,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 522684481989121540, guid: 567ff6cd579d6ed439491208a1e33b4d, type: 3}
+      propertyPath: maskEffectSpeed
+      value: 1.25
+      objectReference: {fileID: 0}
     - target: {fileID: 851407370630650262, guid: 567ff6cd579d6ed439491208a1e33b4d, type: 3}
       propertyPath: m_FlipX
       value: 0

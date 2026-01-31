@@ -276,5 +276,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   outerRingRenderer: {fileID: 5858978935319438962}
   circleRenderer: {fileID: 8815301829703078102}
-  maskEffectSpeed: 0.5
+  maskEffectSpeed: 1.25
   maskEffectBorder: 0.1
