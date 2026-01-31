@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MaskCircleMaterial
-  m_Shader: {fileID: 4800000, guid: 5a4161d0562a83c49a733441019b062e, type: 3}
+  m_Shader: {fileID: 4800000, guid: cc498543081cfc845b6d3fe82eac1b58, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -29,7 +29,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 8400000, guid: 514886d0b3483604fb13bf3ee0852849, type: 2}
+        m_Texture: {fileID: 2800000, guid: 21648374b7cda2145baa8e140ba30a74, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MaskTex:
@@ -44,6 +44,7 @@ Material:
     m_Floats:
     - _Border: 0.1
     - _ColorMask: 3
+    - _ColorMasking: 3
     - _DiscardFragments: 1
     - _Distance: 0.3
     - _EnableExternalAlpha: 0

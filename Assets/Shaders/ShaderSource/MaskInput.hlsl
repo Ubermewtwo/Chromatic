@@ -1,14 +1,15 @@
 #ifndef MASK_INPUT_INCLUDED
 #define MASK_INPUT_INCLUDED
 
+TEXTURE2D(_MainTex);
+SAMPLER(sampler_MainTex);
+
 CBUFFER_START(UnityPerMaterial)
     float4 _BaseColor;
-    sampler2D _MainTex;
     float4 _MainTex_ST;
     float _Distance;
-    bool _IsRing;
     float _Border;
-    int _ColorMask;
+    int _ColorMasking;
 CBUFFER_END
 
 struct Attributes
@@ -19,10 +20,9 @@ struct Attributes
 
 struct Varyings
 {
-    float2 uv : TEXCOORD0;
-    float3 positionWS : TEXCOORD1;
-
     float4 positionCS : SV_POSITION;
+    float2 uv : TEXCOORD0;
+    float2 unscaledUV : TEXCOORD1;
 };
 
 #endif

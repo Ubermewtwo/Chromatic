@@ -2,12 +2,19 @@ using UnityEngine;
 
 namespace Chromatic
 {
-    
+    enum MaskColor
+    {
+        Red = 0,
+        Green = 1,
+        Blue = 2,
+        None = 3
+    }
 
     public class ExampleMaskBehaviour : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer outerRingSprite;
         [SerializeField] private SpriteRenderer circleSprite;
+        [SerializeField] private MaskColor maskColor;
         [SerializeField] private float maskEffectSpeed = 2f;
         [SerializeField] private float maskEffectBorder = 0.1f;
 
@@ -22,11 +29,8 @@ namespace Chromatic
             _outerRingMaterial = outerRingSprite.material;
             _circleMaterial = circleSprite.material;
 
-            _outerRingMaterial.SetFloat("_IsRing", 1f);
             _outerRingMaterial.SetFloat("_Border", maskEffectBorder);
-
-            // TODO: Select Color Masking from the editor
-            _outerRingMaterial.SetInteger("_ColorMask", 0);
+            _outerRingMaterial.SetInteger("_ColorMask", (int)maskColor);
 
             Restart();
         }

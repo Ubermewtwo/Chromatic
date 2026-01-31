@@ -44,14 +44,15 @@ Material:
     m_Ints: []
     m_Floats:
     - _Border: 0.1
-    - _ColorMask: 0
+    - _ColorMask: 1
+    - _ColorMasking: 0
     - _DiscardFragments: 1
     - _Distance: 0.4
     - _EnableExternalAlpha: 0
     - _IsRing: 1
     - _ZWrite: 0
     m_Colors:
-    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _BaseColor: {r: 1, g: 0, b: 0, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
