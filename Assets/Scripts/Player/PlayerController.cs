@@ -1,8 +1,11 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
+    public MaskType currentMask = MaskType.Green;
+
     [Header("Movement Settings")]
     public float moveSpeed = 50f;
     public float deceleration = 50f;
@@ -10,7 +13,7 @@ public class PlayerController : MonoBehaviour
     public float defaultMaxSpeed = 5f;
     private float slipperiness = 1f;
     private float maxSpeed = 5f;
-    public Animator anims;
+    //public Animator anims;
 
     public float airSpeed = 30f;
     public float maxAirSpeed = 3f;
@@ -34,22 +37,43 @@ public class PlayerController : MonoBehaviour
     public float wallJumpVelocity = 8f;
     public float maxSlideSpeed = 2.5f;
 
+    [Header("Attack Settings")]
+    public BoxCollider2D rightAttackHitbox;
+    public BoxCollider2D leftAttackHitbox;
+    public bool isPeformingAttack = false;
+
     [Header("Ground Check")]
-    public Transform groundCheck;
-    public Transform leftCheck;
-    public Transform rightCheck;
+    public BoxCollider2D groundCheck;
+    public BoxCollider2D leftCheck;
+    public BoxCollider2D rightCheck;
     public LayerMask groundLayer;
     public bool isGrounded;
+    public LayerMask liquidLayer;
+
+    [Header("Visuals")]
+    public SpriteRenderer spriteRenderer;
+    public PlayerSpritesData playerSpritesData;
+
+    [Header("SFX")]
+    public AudioClipPlus walkSFX;
+    public float walkSFXInterval = 0.4f;
+    private float walkSFXTimer = 0f;
+    public AudioClipPlus jumpSFX;
+    public AudioClipPlus landSFX;
+    public AudioClipPlus grabSFX;
 
     private Rigidbody2D rb;
+    private BoxCollider2D playerCollider;
     private Vector2 moveInput;
     private bool jumpPressed;
     private bool grabPressed;
+    private bool attackPressed;
     private float defaultGravityScale;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        playerCollider = GetComponent<BoxCollider2D>();
         slipperiness = defaultSlipperiness;
         maxSpeed = defaultMaxSpeed;
         defaultGravityScale = rb.gravityScale;
@@ -57,39 +81,94 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (isGrabbing)
-        {
-            if (rb.linearVelocity.y < maxSlideSpeed)
-            {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, maxSlideSpeed);
-            }
-            return;
-        }
+        UpdateAnimations();
+
+        //if (isPeformingAttack)
+        //{
+        //    return;
+        //}
+
+        //// Input handling
+        //if (attackPressed)
+        //{
+        //    switch (currentMask)
+        //    {
+        //        case MaskType.Green:
+        //            if (isGrounded)
+        //            {
+        //                bool isFacingRight = spriteRenderer.flipX == false;
+        //                if (isFacingRight)
+        //                {
+        //                    // Perform ground green mask attack with rightAttackHitbox
+        //                }
+        //                else
+        //                {
+        //                    // Perform ground green mask attack with leftAttackHitbox
+        //                }
+
+        //                isPeformingAttack = true;
+
+        //            }
+        //            else
+        //            {
+        //                // Perform air green mask attack
+        //            }
+        //            break;
+        //        case MaskType.Red:
+        //            // Perform red mask attack
+        //            break;
+        //        case MaskType.Blue:
+        //            // Perform blue mask attack
+        //            break;
+        //    }
+        //}
 
         if (grabPressed)
         {
             if (CanGrab())
             {
                 Grab();
-                return;
             }
         }
 
         if (jumpBufferTimer > 0f)
         {
-            if (Canjump())
+            if (isGrabbing) // Wall jump
             {
+                CancelGrab();
+
                 isJumping = true;
                 jumpTimer = jumpDuration;
                 jumpBufferTimer = 0f;
                 coyoteTimer = 0f;
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpVelocity);
+                SFXManager.Instance.PlaySFX(jumpSFX);
+
+                float jumpDirection = spriteRenderer.flipX ? 1f : -1f;
+                rb.linearVelocity = new Vector2(jumpDirection * wallJumpVelocity, jumpVelocity);
+                spriteRenderer.flipX = !spriteRenderer.flipX;
+            }
+            else if (Canjump()) // Regular jump
+            {
+                Jump();
+            }
+            else if (!isGrounded) // Liquid jump
+            {
+                GameObject liquid = Physics2D.OverlapBox(playerCollider.bounds.center, playerCollider.bounds.size, 0f, liquidLayer)?.gameObject;
+
+                if (liquid != null)
+                {
+                    Jump();
+                }
             }
 
             jumpBufferTimer -= Time.deltaTime;
         }
+    }
 
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer) && rb.linearVelocityY == 0;
+    private void FixedUpdate()
+    {
+        bool wasGrounded = isGrounded;
+        isGrounded = Physics2D.OverlapBox(groundCheck.bounds.center, groundCheck.bounds.size, 0f, groundLayer) && rb.linearVelocity.y == 0;
         if (isGrounded)
         {
             coyoteTimer = coyoteTime;
@@ -99,7 +178,42 @@ public class PlayerController : MonoBehaviour
             coyoteTimer -= Time.deltaTime;
         }
 
-        GameObject groundObject = Physics2D.OverlapCircle(groundCheck.position, 0.1f, groundLayer)?.gameObject;
+        if (!wasGrounded && isGrounded)
+        {
+            SFXManager.Instance.PlaySFX(landSFX);
+        }
+
+        // Wall grab logic
+        if (isGrabbing)
+        {
+            if (rb.linearVelocity.y < maxSlideSpeed)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, maxSlideSpeed);
+            }
+
+            GameObject grabbedWall = null;
+
+            bool facingRight = spriteRenderer.flipX == false;
+
+            if (facingRight)
+            {
+                grabbedWall = Physics2D.OverlapBox(rightCheck.bounds.center, rightCheck.bounds.size, 0f, groundLayer)?.gameObject;
+            }
+            else
+            {
+                grabbedWall = Physics2D.OverlapBox(leftCheck.bounds.center, leftCheck.bounds.size, 0f, groundLayer)?.gameObject;
+            }
+
+            if (grabbedWall == null)
+            {
+                CancelGrab();
+            }
+
+            return;
+        }
+
+        // Update slipperiness and max speed based on ground surface
+        GameObject groundObject = Physics2D.OverlapBox(groundCheck.bounds.center, groundCheck.bounds.size, 0f, groundLayer)?.gameObject;
         if (groundObject != null)
         {
             //Debug.Log("Ground object: " + groundObject.name);
@@ -121,8 +235,8 @@ public class PlayerController : MonoBehaviour
             slipperiness = defaultSlipperiness;
             maxSpeed = defaultMaxSpeed;
         }
-
-        CharacterMovement();
+        
+        CharacterMovement(); // Handle horizontal movement
 
         if (rb.linearVelocity.y < 0)
         {
@@ -143,10 +257,51 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Jump()
+    {
+        isJumping = true;
+        jumpTimer = jumpDuration;
+        jumpBufferTimer = 0f;
+        coyoteTimer = 0f;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpVelocity);
+        SFXManager.Instance.PlaySFX(jumpSFX);
+    }
+
+    private void UpdateAnimations()
+    {
+        PlayerSpritesData.PlayerState currentState = PlayerSpritesData.PlayerState.Idle;
+
+        if (isGrabbing)
+        {
+            currentState = PlayerSpritesData.PlayerState.Grab;
+        }
+        else if (!isGrounded)
+        {
+            if (rb.linearVelocity.y > 0)
+            {
+                currentState = PlayerSpritesData.PlayerState.Jump;
+            }
+            else
+            {
+                currentState = PlayerSpritesData.PlayerState.Fall;
+            }
+        }
+        else if (Mathf.Abs(rb.linearVelocity.x) > 0.1f)
+        {
+            currentState = PlayerSpritesData.PlayerState.Walk;
+        }
+        else
+        {
+            currentState = PlayerSpritesData.PlayerState.Idle;
+        }
+
+        Sprite currentSprite = playerSpritesData.GetSprite(currentState, Time.time);
+        spriteRenderer.sprite = currentSprite;
+    }
+
     private bool Canjump()
     {
         bool canJump = (isGrounded || coyoteTimer > 0) && !isJumping;
-        Debug.Log("Can Jump: " + canJump);
         return canJump;
     }
 
@@ -154,27 +309,24 @@ public class PlayerController : MonoBehaviour
     {
         if (isGrabbing || isGrounded) return false;
 
-        bool facingRight = rb.transform.localScale.x > 0;
+        bool facingRight = spriteRenderer.flipX == false;
 
         GameObject wall = null;
 
         if (facingRight)
         {
-            wall = Physics2D.OverlapCircle(rightCheck.position, 0.1f, groundLayer)?.gameObject;
+            wall = Physics2D.OverlapBox(rightCheck.bounds.center, rightCheck.bounds.size, 0f, groundLayer)?.gameObject;
         }
         else
         {
-            wall = Physics2D.OverlapCircle(rightCheck.position, 0.1f, groundLayer)?.gameObject;
-            // When flipping the characters the checks also flip, so both checks are on the right side.
-            //wall = Physics2D.OverlapCircle(leftCheck.position, 0.1f, groundLayer)?.gameObject;
+            wall = Physics2D.OverlapBox(leftCheck.bounds.center, leftCheck.bounds.size, 0f, groundLayer)?.gameObject;
         }
 
-        Debug.Log("Wall object: " + (wall != null ? wall.name : "None"));
+        //Debug.Log("Wall object: " + (wall != null ? wall.name : "None"));
 
         if (wall != null)
         {
-            IGrabbableSurface grabbableSurface = wall.GetComponent<IGrabbableSurface>();
-            if (grabbableSurface != null && grabbableSurface.Grabbable)
+            if (wall.CompareTag("Grabbable"))
             {
                 return true;
             }
@@ -192,6 +344,16 @@ public class PlayerController : MonoBehaviour
             {
                 float acceleration = moveInput.x * moveSpeed;
                 xVelocity = rb.linearVelocityX + (acceleration / slipperiness) * Time.deltaTime;
+
+                if (walkSFXTimer <= 0f && Mathf.Abs(rb.linearVelocityX) > 0.1f)
+                {
+                    SFXManager.Instance.PlaySFX(walkSFX);
+                    walkSFXTimer = walkSFXInterval;
+                }
+                else
+                {
+                    walkSFXTimer -= Time.deltaTime;
+                }
             }
             else
             {
@@ -233,27 +395,64 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, maxfallSpeed);
         }
 
-        //Orientacion de la sprite
-
+        // Sprite orientation
         if (rb.linearVelocity.x > 0)
         {
-            rb.transform.localScale = Vector3.one;
+            spriteRenderer.flipX = false;
         }
         if (rb.linearVelocity.x < 0)
         {
-            rb.transform.localScale = new Vector3(-1, 1, 1);
+            spriteRenderer.flipX = true;
         }
-
-        //Animacion movimiento
-
-        anims.SetBool("Moving", rb.linearVelocity.x != 0);
     }
 
     private void Grab()
     {
+        GameObject wall = null;
+        bool facingRight = spriteRenderer.flipX == false;
+
+        if (facingRight)
+        {
+            wall = Physics2D.OverlapBox(rightCheck.bounds.center, rightCheck.bounds.size, 0f, groundLayer)?.gameObject;
+        }
+        else
+        {
+            wall = Physics2D.OverlapBox(leftCheck.bounds.center, rightCheck.bounds.size, 0f, groundLayer)?.gameObject;
+        }
+
+        // snap player to wall
+        if (wall != null)
+        {
+            BoxCollider2D wallCollider = wall.GetComponent<BoxCollider2D>();
+
+            if (wallCollider == null)
+            {
+                Debug.LogWarning("Wall object does not have a BoxCollider2D component.");
+                return;
+            }
+
+            Vector3 wallPosition = wall.transform.position;
+            float snapPosition = wallPosition.x;
+
+            if (facingRight)
+            {
+                snapPosition -= (wallCollider.size.x * wallCollider.transform.localScale.x) / 2f;
+                snapPosition -= playerCollider.size.x / 2f;
+            }
+            else
+            {
+                snapPosition += (wallCollider.size.x * wallCollider.transform.localScale.x) / 2f;
+                snapPosition += playerCollider.size.x / 2f;
+            }
+
+            rb.transform.position = new Vector3(snapPosition, rb.transform.position.y, rb.transform.position.z);
+            //Debug.Log("Snapped to wall at position: " + snapPosition);
+        }
+
         isGrabbing = true;
         rb.linearVelocity = Vector2.zero;
         rb.gravityScale = defaultGravityScale / 2f;
+        SFXManager.Instance.PlaySFX(grabSFX);
     }
 
     private void CancelGrab()
@@ -274,40 +473,21 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (!isGrabbing)
+        if (context.started)
         {
-            if (context.started)
-            {
-                jumpPressed = true;
-                jumpBufferTimer = jumpBufferTime;
-            }
-
-            if (context.canceled)
-            {
-                jumpPressed = false;
-                isJumping = false;
-            }
+            jumpPressed = true;
+            jumpBufferTimer = jumpBufferTime;
         }
-        else
+
+        if (context.canceled)
         {
-            if (context.started)
-            {
-                CancelGrab();
-
-                isJumping = true;
-                jumpTimer = jumpDuration;
-
-                float jumpDirection = rb.transform.localScale.x > 0 ? -1f : 1f;
-                rb.linearVelocity = new Vector2(jumpDirection * wallJumpVelocity, jumpVelocity);
-                rb.transform.localScale = new Vector3(-rb.transform.localScale.x, 1, 1);
-            }
+            jumpPressed = false;
+            isJumping = false;
         }
     }
 
     public void OnGrab(InputAction.CallbackContext context)
     {
-        Debug.Log("Grab input received");
-
         if (context.started)
         {
             grabPressed = true;
@@ -319,4 +499,11 @@ public class PlayerController : MonoBehaviour
             CancelGrab();
         }
     }
+}
+
+public enum MaskType
+{
+    Green,
+    Red,
+    Blue
 }

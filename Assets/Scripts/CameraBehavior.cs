@@ -2,32 +2,29 @@ using UnityEngine;
 
 public class CameraBehavior : MonoBehaviour
 {
+    public Vector3 offset;
+    public float minDamping = 5f;
+    public float maxDamping = 20f;
+    public float minOffset = 2f;
+    public float maxOffset = 10f;
+
     public Transform target;
-    public float maxMoveSpeed;
-    public float minMoveSpeed;
-    public float speedOffset;
-    public float upOffset;
-    public float dist;
-    void Start()
+
+    private Vector3 velocity = Vector3.zero;
+
+    public void FixedUpdate()
     {
+        if (target == null) return;
+        
+        Vector3 targetPosition = target.position + offset;
+        targetPosition.z = transform.position.z; // Maintain original z position
+        float distance = Vector3.Distance(transform.position, targetPosition);
 
-    }
+        float t = Mathf.InverseLerp(minOffset, maxOffset, distance);
+        float damping = Mathf.Lerp(maxDamping, minDamping, t);
 
-    void Update()
-    {
-        if (target)
-        {
-            Vector3 targetPos = new Vector3(target.position.x, (target.position.y + upOffset), transform.position.z);
+        //Debug.Log($"Distance: {distance}, Damping: {damping}");
 
-            //Prueba velocidad
-            Vector2 target2D = new Vector2(target.position.x, (target.position.y + upOffset));
-            Vector2 current2D = new Vector2(transform.position.x, transform.position.y);
-            dist = Vector3.Distance(target2D, current2D);
-
-            //float balancedSpeed = Mathf.InverseLerp(maxMoveSpeed, minMoveSpeed, (distMultiplier / 1000) / speedOffset);
-
-
-            transform.position = Vector3.MoveTowards(transform.position, targetPos, maxMoveSpeed * dist * Time.deltaTime);
-        }
+        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, damping * Time.deltaTime);
     }
 }
