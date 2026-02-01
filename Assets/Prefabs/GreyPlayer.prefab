@@ -272,8 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c5607d80dbdc0e46ace836e12e6a26e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlockedMasks: 00000000
-  currentMaskIndex: 0
+  maskedPlayerPrefab: {fileID: 2311141381308501677, guid: 22a8994012e67134ca475904b9055da5, type: 3}
   moveSpeed: 50
   deceleration: 25
   defaultSlipperiness: 1
@@ -332,6 +331,7 @@ MonoBehaviour:
     Volume: 0
     Pitch: 0
     PitchVariance: 0
+  debugObtainMask: 0
 --- !u!1 &5065265013155532031
 GameObject:
   m_ObjectHideFlags: 0
