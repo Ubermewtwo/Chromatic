@@ -2,8 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="188c0741-3860-47be-bf68-d5673878f015" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Levels/MainLevels/Jungla.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Levels/MainLevels/Jungla.unity" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Levels/Tutorials/Tutorial_Level.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Levels/Tutorials/Tutorial_Level.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Levels/Hub/FinalHub.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Levels/Hub/FinalHub.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Levels/MainLevels/Lava.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Levels/MainLevels/Lava.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/agua/agarrar_pared_agua.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/agua/agarrar_pared_agua.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/fuego/agarrar_pared_fuego.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/fuego/agarrar_pared_fuego.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/fuego/idle_fuego.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/fuego/idle_fuego.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Sprites/planta/agarrar_pared_planta.png.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Sprites/planta/agarrar_pared_planta.png.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,6 +16,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal/Shaders/Unlit.shader" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
@@ -98,6 +105,7 @@
       <workItem from="1769937475440" duration="8000" />
       <workItem from="1769937492499" duration="6000" />
       <workItem from="1769941179788" duration="7000" />
+      <workItem from="1769947913187" duration="6000" />
     </task>
     <servers />
   </component>
