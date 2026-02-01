@@ -1,4 +1,7 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -8,10 +11,13 @@ public class PlayerHealth : MonoBehaviour
     public float damageCooldown = 1.0f;
     private float lastDamageTime = -Mathf.Infinity;
 
+    public GameObject playerSprites;
     public AudioClipPlus hurtSFX;
     public AudioClipPlus deathSFX;
 
     private PlayerController playerController;
+
+    [NonSerialized] public UnityEvent<int> OnHealthChanged = new UnityEvent<int>();
 
     private void Awake()
     {
@@ -34,6 +40,7 @@ public class PlayerHealth : MonoBehaviour
         SFXManager.Instance.PlaySFX(hurtSFX);
 
         currentHealth -= damage;
+        OnHealthChanged?.Invoke(currentHealth);
         lastDamageTime = Time.time;
         if (currentHealth <= 0)
         {
@@ -44,9 +51,12 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         // Handle player death (e.g., respawn, game over)
+        GetComponent<PlayerInput>().enabled = false;
+        playerSprites.SetActive(false);
         Debug.LogWarning("Player has died.");
         SFXManager.Instance.PlaySFX(deathSFX);
-        Destroy(gameObject);
+        //Destroy(gameObject);
+        this.enabled = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
