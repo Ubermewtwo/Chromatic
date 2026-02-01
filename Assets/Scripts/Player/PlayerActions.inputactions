@@ -43,12 +43,12 @@
                 },
                 {
                     "name": "SwitchMask",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "26c7e118-f153-4958-9644-158fb2135534",
-                    "expectedControlType": "",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -296,8 +296,8 @@
                 },
                 {
                     "name": "1D Axis",
-                    "id": "8de98ccc-0946-44f4-ad13-d3f571375e55",
-                    "path": "1DAxis",
+                    "id": "d656b514-7781-44d0-b7b5-2c5fa0567ddc",
+                    "path": "1DAxis(whichSideWins=1)",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -307,7 +307,7 @@
                 },
                 {
                     "name": "negative",
-                    "id": "36c198ab-a008-4988-a88e-ab8650a47e80",
+                    "id": "d65814d6-fa7c-43eb-8f8f-b81297b67152",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
@@ -318,7 +318,7 @@
                 },
                 {
                     "name": "positive",
-                    "id": "ee483f47-a1f7-416d-90ff-d75d4e582353",
+                    "id": "f4bccee5-fe12-4463-8c68-b7715f314d0b",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",

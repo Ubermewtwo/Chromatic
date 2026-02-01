@@ -2,10 +2,19 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using System.Collections.Generic;
+using Chromatic;
 
 public class PlayerController : MonoBehaviour
 {
-    public MaskType currentMask = MaskType.Green;
+    //public MaskType currentMask = MaskType.Green;
+    public List<MaskType> unlockedMasks = new List<MaskType> { MaskType.Green };
+    public int currentMaskIndex = 0;
+
+    public MaskType CurrentMask
+    {
+        get { return unlockedMasks[currentMaskIndex]; }
+    }
 
     [Header("Movement Settings")]
     public float moveSpeed = 50f;
@@ -66,8 +75,15 @@ public class PlayerController : MonoBehaviour
     public LayerMask liquidLayer;
 
     [Header("Visuals")]
-    public SpriteRenderer spriteRenderer;
-    public PlayerSpritesData playerSpritesData;
+    public SpriteRenderer greenSpriteRenderer;
+    public PlayerSpritesData greenPlayerSpritesData;
+    public SpriteRenderer redSpriteRenderer;
+    public PlayerSpritesData redPlayerSpritesData;
+    public SpriteRenderer blueSpriteRenderer;
+    public PlayerSpritesData bluePlayerSpritesData;
+
+    private SpriteRenderer currentSpriteRenderer;
+    private PlayerSpritesData currentPlayerSpritesData;
 
     [Header("SFX")]
     public AudioClipPlus walkSFX;
@@ -95,6 +111,11 @@ public class PlayerController : MonoBehaviour
         slipperiness = defaultSlipperiness;
         maxSpeed = defaultMaxSpeed;
         defaultGravityScale = rb.gravityScale;
+    }
+
+    private void Start()
+    {
+        SetCurrentMask(currentMaskIndex);
     }
 
     private void Update()
@@ -127,9 +148,9 @@ public class PlayerController : MonoBehaviour
                 coyoteTimer = 0f;
                 SFXManager.Instance.PlaySFX(jumpSFX);
 
-                float jumpDirection = spriteRenderer.flipX ? 1f : -1f;
+                float jumpDirection = currentSpriteRenderer.flipX ? 1f : -1f;
                 rb.linearVelocity = new Vector2(jumpDirection * wallJumpVelocity, jumpVelocity);
-                spriteRenderer.flipX = !spriteRenderer.flipX;
+                currentSpriteRenderer.flipX = !currentSpriteRenderer.flipX;
             }
             else if (Canjump()) // Regular jump
             {
@@ -178,7 +199,7 @@ public class PlayerController : MonoBehaviour
 
             GameObject grabbedWall = null;
 
-            bool facingRight = spriteRenderer.flipX == false;
+            bool facingRight = currentSpriteRenderer.flipX == false;
 
             if (facingRight)
             {
@@ -258,18 +279,7 @@ public class PlayerController : MonoBehaviour
 
         if (isPeformingAttack)
         {
-            switch (currentMask)
-            {
-                case MaskType.Green:
-                    currentState = PlayerSpritesData.PlayerState.GreenAttack;
-                    break;
-                case MaskType.Red:
-                    currentState = PlayerSpritesData.PlayerState.RedAttack;
-                    break;
-                case MaskType.Blue:
-                    currentState = PlayerSpritesData.PlayerState.BlueAttack;
-                    break;
-            }
+            currentState = PlayerSpritesData.PlayerState.Attack;
         }
         else if (isGrabbing)
         {
@@ -295,8 +305,9 @@ public class PlayerController : MonoBehaviour
             currentState = PlayerSpritesData.PlayerState.Idle;
         }
 
-        Sprite currentSprite = playerSpritesData.GetSprite(currentState, Time.time - attackStartTime);
-        spriteRenderer.sprite = currentSprite;
+        MaskType currentMask = unlockedMasks[currentMaskIndex];
+        Sprite currentSprite = currentPlayerSpritesData.GetSprite(currentState, Time.time - attackStartTime, currentMask);
+        currentSpriteRenderer.sprite = currentSprite;
     }
 
     private bool Canjump()
@@ -309,7 +320,7 @@ public class PlayerController : MonoBehaviour
     {
         if (isGrabbing || isGrounded) return false;
 
-        bool facingRight = spriteRenderer.flipX == false;
+        bool facingRight = currentSpriteRenderer.flipX == false;
 
         GameObject wall = null;
 
@@ -398,18 +409,18 @@ public class PlayerController : MonoBehaviour
         // Sprite orientation
         if (rb.linearVelocity.x > 0)
         {
-            spriteRenderer.flipX = false;
+            currentSpriteRenderer.flipX = false;
         }
         if (rb.linearVelocity.x < 0)
         {
-            spriteRenderer.flipX = true;
+            currentSpriteRenderer.flipX = true;
         }
     }
 
     private void Grab()
     {
         GameObject wall = null;
-        bool facingRight = spriteRenderer.flipX == false;
+        bool facingRight = currentSpriteRenderer.flipX == false;
 
         if (facingRight)
         {
@@ -500,6 +511,41 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    public void OnSwitchMask(InputAction.CallbackContext context)
+    {
+        if (context.started && MaskTransitionBehaviour.Instance.CanRestart)
+        {
+            int value = (int)context.ReadValue<float>();
+            Debug.Log("Switching mask by value: " + value);
+            int newMaskIndex = Mathf.Abs(currentMaskIndex + value) % 3;
+            SetCurrentMask(newMaskIndex);
+        }
+    }
+
+    private void SetCurrentMask(int newMaskIndex)
+    {
+        MaskTransitionBehaviour.Instance.transform.parent.position = transform.position;
+        currentMaskIndex = newMaskIndex;
+        switch (unlockedMasks[newMaskIndex])
+        {
+            case MaskType.Green:
+                currentSpriteRenderer = greenSpriteRenderer;
+                currentPlayerSpritesData = greenPlayerSpritesData;
+                MaskTransitionBehaviour.Instance.ConfigureMask(MaskType.Green);
+                break;
+            case MaskType.Red:
+                currentSpriteRenderer = redSpriteRenderer;
+                currentPlayerSpritesData = redPlayerSpritesData;
+                MaskTransitionBehaviour.Instance.ConfigureMask(MaskType.Red);
+                break;
+            case MaskType.Blue:
+                currentSpriteRenderer = blueSpriteRenderer;
+                currentPlayerSpritesData = bluePlayerSpritesData;
+                MaskTransitionBehaviour.Instance.ConfigureMask(MaskType.Blue);
+                break;
+        }
+    }
+
     public void OnAttack(InputAction.CallbackContext context)
     {
         if (context.started)
@@ -508,12 +554,14 @@ public class PlayerController : MonoBehaviour
 
             if (!isPeformingAttack && !isGrabbing)
             {
+                MaskType currentMask = unlockedMasks[currentMaskIndex];
+
                 switch (currentMask)
                 {
                     case MaskType.Green:
                         if (isGrounded)
                         {
-                            bool isFacingRight = spriteRenderer.flipX == false;
+                            bool isFacingRight = currentSpriteRenderer.flipX == false;
                             if (isFacingRight)
                             {
                                 rightAttackHitbox.gameObject.SetActive(true);
@@ -530,7 +578,7 @@ public class PlayerController : MonoBehaviour
                             isJumping = false;
                             SFXManager.Instance.PlaySFX(whipAttackSFX);
                             DOVirtual.DelayedCall(attackDuration, () => { isPeformingAttack = false; });
-                            Debug.Log("Performing ground green mask attack");
+                            //Debug.Log("Performing ground green mask attack");
 
                         }
                         else
@@ -544,7 +592,7 @@ public class PlayerController : MonoBehaviour
                                 SpecialPlatform platform = platformAbove.GetComponent<SpecialPlatform>();
                                 if (platform != null && currentMask == MaskType.Green)
                                 {
-                                    Debug.Log("Climbing platform above: " + platformAbove.name);
+                                    //Debug.Log("Climbing platform above: " + platformAbove.name);
                                     isPeformingAttack = true;
                                     attackStartTime = Time.time;
                                     isJumping = false;
@@ -585,7 +633,7 @@ public class PlayerController : MonoBehaviour
                         SFXManager.Instance.PlaySFX(dashSFX);
                         rb.linearVelocity = Vector2.zero;
                         rb.gravityScale = 0f;
-                        float dashDirection = moveInput.x != 0 ? Mathf.Sign(moveInput.x) : (spriteRenderer.flipX ? -1f : 1f);
+                        float dashDirection = moveInput.x != 0 ? Mathf.Sign(moveInput.x) : (currentSpriteRenderer.flipX ? -1f : 1f);
                         StartCoroutine(Dash(dashDirection));
                         break;
                 }
@@ -640,11 +688,29 @@ public class PlayerController : MonoBehaviour
                 rb.gravityScale = defaultGravityScale;
                 isPeformingAttack = false;
                 // break the ground here if needed
+
+                GameObject groundObject = Physics2D.OverlapBox(groundCheck.bounds.center, groundCheck.bounds.size, 0f, groundLayer)?.gameObject;
+
+                SpecialPlatform platform = groundObject != null ? groundObject.GetComponent<SpecialPlatform>() : null;
+
+                if (platform != null)
+                {
+                    platform.Break();
+                }
+
                 yield break;
             }
 
             yield return null;
         }
+    }
+
+    public void LavaJump()
+    {
+        StopAllCoroutines();
+        rb.gravityScale = defaultGravityScale;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpVelocity * 2f);
+        // other logic
     }
 
     private IEnumerator Dash(float dashDirection)

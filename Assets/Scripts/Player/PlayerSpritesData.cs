@@ -17,7 +17,7 @@ public class PlayerSpritesData : ScriptableObject
     public List<Sprite> BlueAttackSprites;
     public float BlueAttackFrameRate;
 
-    public Sprite GetSprite(PlayerState state, float time)
+    public Sprite GetSprite(PlayerState state, float time, MaskType maskType)
     {
         switch (state)
         {
@@ -33,16 +33,21 @@ public class PlayerSpritesData : ScriptableObject
                 return FallSprite;
             case PlayerState.Grab:
                 return GrabSprite;
-            case PlayerState.GreenAttack:
-                return GreenAttackSprite;
-            case PlayerState.RedAttack:
-                int redAttackIndex = (int)(time * RedAttackTransformationFrameRate);
-                if (redAttackIndex >= RedAttackTransformationSprites.Count)
-                    redAttackIndex = RedAttackTransformationSprites.Count - 1;
-                return RedAttackTransformationSprites[redAttackIndex];
-            case PlayerState.BlueAttack:
-                int blueAttackIndex = (int)(time * BlueAttackFrameRate) % BlueAttackSprites.Count;
-                return BlueAttackSprites[blueAttackIndex];
+            case PlayerState.Attack:
+                switch (maskType)
+                {
+                    case MaskType.Green:
+                        return GreenAttackSprite;
+                    case MaskType.Red:
+                        int redAttackIndex = (int)(time * RedAttackTransformationFrameRate);
+                        if (redAttackIndex >= RedAttackTransformationSprites.Count)
+                            redAttackIndex = RedAttackTransformationSprites.Count - 1;
+                        return RedAttackTransformationSprites[redAttackIndex];
+                    case MaskType.Blue:
+                        int blueAttackIndex = (int)(time * BlueAttackFrameRate) % BlueAttackSprites.Count;
+                        return BlueAttackSprites[blueAttackIndex];
+                }
+                break;
         }
 
         Debug.LogError("Invalid PlayerState: " + state);
@@ -56,8 +61,6 @@ public class PlayerSpritesData : ScriptableObject
         Jump,
         Fall,
         Grab,
-        GreenAttack,
-        RedAttack,
-        BlueAttack
+        Attack,
     }
 }

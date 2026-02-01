@@ -7,6 +7,8 @@ TagManager:
   - CheckPoint
   - Kill
   - Grabbable
+  - Lethal
+  - Damaging
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - Player
   - Ground
   - Liquid
-  - 
+  - Light
   - Ring
   - Red
   - Green

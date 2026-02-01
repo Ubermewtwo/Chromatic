@@ -1,9 +1,15 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Chromatic
 {
     public class MaskTransitionBehaviour : MonoBehaviour
     {
+        public static MaskTransitionBehaviour Instance { get; private set; }
+
+        [NonSerialized] public UnityEvent<MaskType> OnMaskTransition = new UnityEvent<MaskType>();
+
         [SerializeField] private Renderer outerRingRenderer;
         [SerializeField] private Renderer circleRenderer;
         [SerializeField] private float maskEffectSpeed = 2f;
@@ -17,30 +23,44 @@ namespace Chromatic
         private bool _hasStarted, _hasFinished;
         private float _radius;
 
+        public bool CanRestart => !_hasStarted;
+
         private void Awake()
         {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject);
+                return;
+            }
+
             _outerRingMaterial = outerRingRenderer.material;
             _circleMaterial = circleRenderer.material;
+            _maskChangedRendering = FindFirstObjectByType<MaskChangedRendering>();
 
             Restart();
         }
 
         private void Start()
         {
-            _maskChangedRendering = FindFirstObjectByType<MaskChangedRendering>();
+            //_maskChangedRendering = FindFirstObjectByType<MaskChangedRendering>();
         }
 
         private void Update()
         {
-            if (Input.GetKey(KeyCode.Space))
-                Restart();
+            //if (Input.GetKey(KeyCode.Space))
+            //    Restart();
 
-            if (Input.GetKeyDown(KeyCode.R))
-                ConfigureMask(MaskColor.Red);
-            else if (Input.GetKeyDown(KeyCode.G))
-                ConfigureMask(MaskColor.Green);
-            else if (Input.GetKeyDown(KeyCode.B))
-                ConfigureMask(MaskColor.Blue);
+            //if (Input.GetKeyDown(KeyCode.R))
+            //    ConfigureMask(MaskColor.Red);
+            //else if (Input.GetKeyDown(KeyCode.G))
+            //    ConfigureMask(MaskColor.Green);
+            //else if (Input.GetKeyDown(KeyCode.B))
+            //    ConfigureMask(MaskColor.Blue);
 
             if (_hasStarted)
                 InvokeMask();
@@ -64,9 +84,24 @@ namespace Chromatic
             _hasFinished = false;
         }
 
-        private void ConfigureMask(MaskColor maskColor)
+        public void ConfigureMask(MaskType maskType)
         {
             if (_hasStarted) return;
+
+            MaskColor maskColor = MaskColor.None;
+
+            switch (maskType)
+            {
+                case MaskType.Red:
+                    maskColor = MaskColor.Red;
+                    break;
+                case MaskType.Green:
+                    maskColor = MaskColor.Green;
+                    break;
+                case MaskType.Blue:
+                    maskColor = MaskColor.Blue;
+                    break;
+            }
 
             _outerRingMaterial.SetInteger("_ColorMasking", (int)maskColor);
             _maskChangedRendering.MaskColor = maskColor;
@@ -74,6 +109,8 @@ namespace Chromatic
             ChangeCullingMaskUtil.ChangeCullingMaskOfACamera(_maskChangedRendering.RenderCamera, maskColor);
 
             _hasStarted = true;
+
+            OnMaskTransition?.Invoke(maskType);
         }
 
         private void InvokeMask()
