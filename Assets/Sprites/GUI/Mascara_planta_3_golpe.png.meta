@@ -184,7 +184,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Mascara_planta_3_golpe_0: -2239756207960735042
+      Mascara_planta_3_golpe_1: 5277759132614498423
+      Mascara_planta_3_golpe_2: -1498122807504885688
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

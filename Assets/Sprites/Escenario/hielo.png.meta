@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      hielo_0: -5855563796508090286
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -184,6 +184,10 @@ PrefabInstance:
       value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 1306307882222974434, guid: 22a8994012e67134ca475904b9055da5, type: 3}
+      propertyPath: maxfallSpeed
+      value: -15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1306307882222974434, guid: 22a8994012e67134ca475904b9055da5, type: 3}
       propertyPath: defaultMaxSpeed
       value: 10
       objectReference: {fileID: 0}

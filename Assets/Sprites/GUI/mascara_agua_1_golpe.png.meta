@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      mascara_agua_1_golpe_0: 5597329336695530706
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
