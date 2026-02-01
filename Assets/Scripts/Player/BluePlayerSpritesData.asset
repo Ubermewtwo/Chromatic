@@ -38,8 +38,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 93e5553a16dc3824fa8908d283ffce01, type: 3}
   jumpFrameRate: 30
   FallSprite: {fileID: 21300000, guid: 261e3a4c561abb24baace519e9ede6b9, type: 3}
-  GrabSprite: {fileID: 6288659706726585256, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  GreenAttackSprite: {fileID: -3831202356669062874, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
+  GrabSprite: {fileID: 21300000, guid: 9718cb87556abe546ac471f275f10723, type: 3}
+  GreenAttackSprites: []
+  greenAttackFrameRate: 0
   RedAttackTransformationSprites:
   - {fileID: 4735375665114324730, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
   - {fileID: 7216629191016651444, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
@@ -48,8 +49,11 @@ MonoBehaviour:
   - {fileID: -1125653685376602382, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
   RedAttackTransformationFrameRate: 10
   BlueAttackSprites:
-  - {fileID: 5399601884874693798, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  - {fileID: 4735375665114324730, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  - {fileID: 7216629191016651444, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  - {fileID: -3332206485065865636, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  BlueAttackFrameRate: 10
+  - {fileID: 21300000, guid: 09ae1b61f68e52a4e81f5505f8e0fdaf, type: 3}
+  - {fileID: 21300000, guid: b54cf7878e3f9a74bb95230ebc50bcc6, type: 3}
+  - {fileID: 21300000, guid: 702ea7b0d4f40e54391441314451ee52, type: 3}
+  - {fileID: 21300000, guid: 4b0d005ffc9aa484c82c9fcfed147db1, type: 3}
+  - {fileID: 21300000, guid: 788dcbe22fc681641ab54b4eaf306471, type: 3}
+  - {fileID: 21300000, guid: 86fa138b808799d46aa1e9cf51b333d9, type: 3}
+  - {fileID: 21300000, guid: 22696a9c0845efa47a11d48754c21e17, type: 3}
+  BlueAttackFrameRate: 30

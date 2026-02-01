@@ -74,10 +74,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -394,6 +394,33 @@ MonoBehaviour:
     Volume: 1
     Pitch: 1
     PitchVariance: 0
+  jumpVoiceLines:
+  - AudioClip: {fileID: 8300000, guid: 0d8dafa9a54877e408facad91a16748f, type: 3}
+    Volume: 1
+    Pitch: 1
+    PitchVariance: 0.1
+  - AudioClip: {fileID: 8300000, guid: 168f860c41aa66f438e69e7bb26299fe, type: 3}
+    Volume: 1
+    Pitch: 1
+    PitchVariance: 0.1
+  attackVoiceLines:
+  - AudioClip: {fileID: 8300000, guid: c0196501ed38b294b9f523c5af73b9e7, type: 3}
+    Volume: 1
+    Pitch: 1
+    PitchVariance: 0.1
+  - AudioClip: {fileID: 8300000, guid: e1bd3e75f8873734e83d57dbd065bcfc, type: 3}
+    Volume: 1
+    Pitch: 1
+    PitchVariance: 0.1
+  wallJumpVoiceLines:
+  - AudioClip: {fileID: 8300000, guid: f07373a5d76b9734280ebf34f2f2b37f, type: 3}
+    Volume: 1
+    Pitch: 1
+    PitchVariance: 0.1
+  - AudioClip: {fileID: 8300000, guid: 1290bf048386ac144848535706db41a1, type: 3}
+    Volume: 1
+    Pitch: 1
+    PitchVariance: 0.1
 --- !u!114 &6577171171689561599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,6 +597,15 @@ MonoBehaviour:
     Volume: 1
     Pitch: 1
     PitchVariance: 0
+  hurtVoiceLines:
+  - AudioClip: {fileID: 8300000, guid: 5083574851b85f74c8c163ca8664db08, type: 3}
+    Volume: 1
+    Pitch: 1
+    PitchVariance: 0.1
+  - AudioClip: {fileID: 8300000, guid: c76c6b73875ffba45af3b2110b689935, type: 3}
+    Volume: 1
+    Pitch: 1
+    PitchVariance: 0.1
 --- !u!1 &2581328442637338148
 GameObject:
   m_ObjectHideFlags: 0

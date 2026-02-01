@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -14,6 +15,7 @@ public class PlayerHealth : MonoBehaviour
     public GameObject playerSprites;
     public AudioClipPlus hurtSFX;
     public AudioClipPlus deathSFX;
+    public List<AudioClipPlus> hurtVoiceLines;
 
     private PlayerController playerController;
 
@@ -38,6 +40,7 @@ public class PlayerHealth : MonoBehaviour
         }
 
         SFXManager.Instance.PlaySFX(hurtSFX);
+        SFXManager.Instance.PlayRandomSFX(hurtVoiceLines);
 
         currentHealth -= damage;
         OnHealthChanged?.Invoke(currentHealth);
