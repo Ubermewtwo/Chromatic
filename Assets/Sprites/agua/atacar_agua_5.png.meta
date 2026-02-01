@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      atacar_agua_5_0: 4603867401879191145
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

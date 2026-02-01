@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      primero_gris_3_0: 577628830983172894
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

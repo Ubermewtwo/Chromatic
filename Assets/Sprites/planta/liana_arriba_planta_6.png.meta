@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      liana_arriba_planta_6_0: 5405690791465395047
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
