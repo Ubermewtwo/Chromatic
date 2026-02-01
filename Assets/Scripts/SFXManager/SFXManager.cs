@@ -8,6 +8,11 @@ public class SFXManager : MonoBehaviour
 
     private AudioSource audioSource;
 
+    public AudioSource baseMusicAudioSource;
+    public AudioSource greenMusicAudioSource;
+    public AudioSource redMusicAudioSource;
+    public AudioSource blueMusicAudioSource;
+
     private void Awake()
     {
         if (Instance == null)
@@ -21,6 +26,44 @@ public class SFXManager : MonoBehaviour
         }
 
         audioSource = GetComponent<AudioSource>();
+
+        baseMusicAudioSource.volume = 1f;
+        greenMusicAudioSource.volume = 0f;
+        redMusicAudioSource.volume = 0f;
+        blueMusicAudioSource.volume = 0f;
+    }
+
+    private void Update()
+    {
+        PlayerController[] player = FindObjectsByType<PlayerController>(FindObjectsSortMode.None);
+
+        if (player.Length == 0)
+        {
+            greenMusicAudioSource.volume = 0f;
+            redMusicAudioSource.volume = 0f;
+            blueMusicAudioSource.volume = 0f;
+        }
+
+        MaskType currentMask = player[0].CurrentMask;
+
+        switch (currentMask)
+        {
+            case MaskType.Green:
+                greenMusicAudioSource.volume = 1f;
+                redMusicAudioSource.volume = 0f;
+                blueMusicAudioSource.volume = 0f;
+                break;
+            case MaskType.Red:
+                greenMusicAudioSource.volume = 0f;
+                redMusicAudioSource.volume = 1f;
+                blueMusicAudioSource.volume = 0f;
+                break;
+            case MaskType.Blue:
+                greenMusicAudioSource.volume = 0f;
+                redMusicAudioSource.volume = 0f;
+                blueMusicAudioSource.volume = 1f;
+                break;
+        }
     }
 
     public void PlaySFX(AudioClipPlus audioClip)
