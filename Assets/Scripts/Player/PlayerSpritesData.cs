@@ -8,7 +8,8 @@ public class PlayerSpritesData : ScriptableObject
     public float IdleFrameRate;
     public List<Sprite> WalkSprites;
     public float WalkFrameRate;
-    public Sprite JumpSprite;
+    public List<Sprite> JumpSprites;
+    public float jumpFrameRate;
     public Sprite FallSprite;
     public Sprite GrabSprite;
     public Sprite GreenAttackSprite;
@@ -28,7 +29,8 @@ public class PlayerSpritesData : ScriptableObject
                 int walkIndex = (int)(time * WalkFrameRate) % WalkSprites.Count;
                 return WalkSprites[walkIndex];
             case PlayerState.Jump:
-                return JumpSprite;
+                int jumpIndex = Mathf.Clamp((int)(time * jumpFrameRate) / JumpSprites.Count, 0, JumpSprites.Count - 1);
+                return JumpSprites[jumpIndex];
             case PlayerState.Fall:
                 return FallSprite;
             case PlayerState.Grab:

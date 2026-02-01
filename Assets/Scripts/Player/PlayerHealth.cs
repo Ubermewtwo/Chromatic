@@ -2,8 +2,12 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    int maxHealth = 3;
-    int currentHealth;
+    public int maxHealth = 3;
+    public int currentHealth;
+
+    public float damageCooldown = 1.0f;
+    private float lastDamageTime = -Mathf.Infinity;
+
 
     private PlayerController playerController;
 
@@ -20,7 +24,13 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (Time.time - lastDamageTime < damageCooldown && damage < maxHealth)
+        {
+            return; // Still in cooldown
+        }
+
         currentHealth -= damage;
+        lastDamageTime = Time.time;
         if (currentHealth <= 0)
         {
             Die();

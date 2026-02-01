@@ -148,6 +148,8 @@ public class PlayerController : MonoBehaviour
                 coyoteTimer = 0f;
                 SFXManager.Instance.PlaySFX(jumpSFX);
 
+                attackStartTime = Time.time;
+
                 float jumpDirection = currentSpriteRenderer.flipX ? 1f : -1f;
                 rb.linearVelocity = new Vector2(jumpDirection * wallJumpVelocity, jumpVelocity);
                 currentSpriteRenderer.flipX = !currentSpriteRenderer.flipX;
@@ -271,6 +273,8 @@ public class PlayerController : MonoBehaviour
         coyoteTimer = 0f;
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpVelocity);
         SFXManager.Instance.PlaySFX(jumpSFX);
+
+        attackStartTime = Time.time;
     }
 
     private void UpdateAnimations()
