@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      salto_gris_3_0: -5093725249846544155
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

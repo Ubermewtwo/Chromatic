@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      salto_fuego_4_0: 6183670175671257125
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
