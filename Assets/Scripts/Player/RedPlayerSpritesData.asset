@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RedPlayerSpritesData
   m_EditorClassIdentifier: 
   IdleSprites:
-  - {fileID: 21300000, guid: 991885b880bf2314885e9dc8b200cb13, type: 3}
+  - {fileID: 21300000, guid: 1131784aa06b6c146b41e59c121decfa, type: 3}
   IdleFrameRate: 5
   WalkSprites:
   - {fileID: 21300000, guid: 991885b880bf2314885e9dc8b200cb13, type: 3}
@@ -38,15 +38,19 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 71aa14ea040c378408b1a326fb82dec6, type: 3}
   jumpFrameRate: 30
   FallSprite: {fileID: 21300000, guid: cd7c6c97aeb074a40997a7464bf0537f, type: 3}
-  GrabSprite: {fileID: 6288659706726585256, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  GreenAttackSprite: {fileID: -3831202356669062874, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
+  GrabSprite: {fileID: 21300000, guid: 3118e275b29935a44bde47c13f2d5234, type: 3}
+  GreenAttackSprites: []
+  greenAttackFrameRate: 0
   RedAttackTransformationSprites:
-  - {fileID: 4735375665114324730, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  - {fileID: 7216629191016651444, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  - {fileID: -3332206485065865636, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  - {fileID: 5769956724132029914, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  - {fileID: -1125653685376602382, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  RedAttackTransformationFrameRate: 10
+  - {fileID: 21300000, guid: c5428a31f4a88384a8a553c0f0256922, type: 3}
+  - {fileID: 21300000, guid: d2396e5a158676c4bae3384a55eedce4, type: 3}
+  - {fileID: 21300000, guid: 446618029d37de743b4d4c07eb9b49a7, type: 3}
+  - {fileID: 21300000, guid: fe60cb8e213fae5448b76455bb886a28, type: 3}
+  - {fileID: 21300000, guid: 5a1380caf273c20479712fc45844ff1f, type: 3}
+  - {fileID: 21300000, guid: 495e0debddc879b43839c223b19d87a5, type: 3}
+  - {fileID: 21300000, guid: 7099ef411eadf98498b261d52f3b49d7, type: 3}
+  - {fileID: 21300000, guid: c8727c9d4483ab245850ff47d5b8340c, type: 3}
+  RedAttackTransformationFrameRate: 15
   BlueAttackSprites:
   - {fileID: 5399601884874693798, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
   - {fileID: 4735375665114324730, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}

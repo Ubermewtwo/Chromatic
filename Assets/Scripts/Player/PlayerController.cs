@@ -124,6 +124,11 @@ public class PlayerController : MonoBehaviour
     // mask obtained
     public AudioClipPlus maskObtainedSFX;
 
+    [Header("VoiceLines")]
+    public List<AudioClipPlus> jumpVoiceLines;
+    public List<AudioClipPlus> attackVoiceLines;
+    public List<AudioClipPlus> wallJumpVoiceLines;
+
     private Rigidbody2D rb;
     private BoxCollider2D playerCollider;
     private Vector2 moveInput;
@@ -177,6 +182,7 @@ public class PlayerController : MonoBehaviour
                 jumpBufferTimer = 0f;
                 coyoteTimer = 0f;
                 SFXManager.Instance.PlaySFX(jumpSFX);
+                SFXManager.Instance.PlayRandomSFX(wallJumpVoiceLines);
 
                 attackStartTime = Time.time;
 
@@ -303,6 +309,7 @@ public class PlayerController : MonoBehaviour
         coyoteTimer = 0f;
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpVelocity);
         SFXManager.Instance.PlaySFX(jumpSFX);
+        SFXManager.Instance.PlayRandomSFX(jumpVoiceLines);
 
         attackStartTime = Time.time;
     }
@@ -552,8 +559,17 @@ public class PlayerController : MonoBehaviour
         if (context.started && MaskTransitionBehaviour.Instance.CanRestart)
         {
             int value = (int)context.ReadValue<float>();
-            Debug.Log("Switching mask by value: " + value);
-            int newMaskIndex = Mathf.Abs(currentMaskIndex + value) % 3;
+            Debug.Log("Switching mask by input value: " + value);
+            int newMaskIndex = currentMaskIndex + value;
+            if (newMaskIndex < 0)
+            {
+                newMaskIndex = unlockedMasks.Count - 1;
+            }
+            else if (newMaskIndex >= unlockedMasks.Count)
+            {
+                newMaskIndex = 0;
+            }
+            Debug.Log("Switching mask by value: " + newMaskIndex);
             SetCurrentMask(newMaskIndex);
         }
     }
@@ -595,6 +611,8 @@ public class PlayerController : MonoBehaviour
             if (!isPeformingAttack && !isGrabbing)
             {
                 MaskType currentMask = unlockedMasks[currentMaskIndex];
+
+                SFXManager.Instance.PlayRandomSFX(attackVoiceLines);
 
                 switch (currentMask)
                 {
@@ -767,18 +785,21 @@ public class PlayerController : MonoBehaviour
     private IEnumerator Dash(float dashDirection)
     {
         float initialXPosition = transform.position.x;
+        float lastXPosition = transform.position.x;
 
         while (true)
         {
             GameObject wall = null;
 
+            Vector2 extraSize = new Vector2(rightCheck.bounds.size.x, rightCheck.bounds.size.y * 2);
+
             if (dashDirection == 1f)
             {
-                wall = Physics2D.OverlapBox(rightCheck.bounds.center, rightCheck.bounds.size, 0f, groundLayer)?.gameObject;
+                wall = Physics2D.OverlapBox(rightCheck.bounds.center, extraSize, 0f, groundLayer)?.gameObject;
             }
             else
             {
-                wall = Physics2D.OverlapBox(leftCheck.bounds.center, leftCheck.bounds.size, 0f, groundLayer)?.gameObject;
+                wall = Physics2D.OverlapBox(leftCheck.bounds.center, extraSize, 0f, groundLayer)?.gameObject;
             }
 
             if (wall != null)
@@ -788,14 +809,6 @@ public class PlayerController : MonoBehaviour
                 rb.gravityScale = defaultGravityScale;
                 dashHitbox.gameObject.SetActive(false);
                 yield break;
-            }
-
-            if (rb.linearVelocity.y == 0f)
-            {
-                Debug.Log("Dash interrupted by fail safe.");
-                isPeformingAttack = false;
-                rb.gravityScale = defaultGravityScale;
-                dashHitbox.gameObject.SetActive(false);
             }
 
             float distanceTravelled = Mathf.Abs(transform.position.x - initialXPosition);
