@@ -13,30 +13,31 @@ MonoBehaviour:
   m_Name: BluePlayerSpritesData
   m_EditorClassIdentifier: 
   IdleSprites:
-  - {fileID: 8633881525917383573, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  - {fileID: -1771866121167276815, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  - {fileID: 2091829175261615561, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  - {fileID: 756911166660455246, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
+  - {fileID: 21300000, guid: dd72be87f41bb9746ada7e2ddcfbc264, type: 3}
   IdleFrameRate: 5
   WalkSprites:
-  - {fileID: 21300000, guid: 991885b880bf2314885e9dc8b200cb13, type: 3}
-  - {fileID: 21300000, guid: 97b26a94b7f1939429871cf1a50fedc4, type: 3}
-  - {fileID: 21300000, guid: 9855c6c404624b547beac7d4ca330e63, type: 3}
-  - {fileID: 21300000, guid: 33032c18280437f44af25204e5affd03, type: 3}
-  - {fileID: 21300000, guid: d83ff6e85b7e82c4980bd4f9d03f568c, type: 3}
-  - {fileID: 21300000, guid: f7abd9619cd6a2d49906ca87cc7502ca, type: 3}
-  - {fileID: 21300000, guid: 21baa0a0d38986d469e492dc1d742a15, type: 3}
-  - {fileID: 21300000, guid: 7e6ca008af71aca4eb9729d1aa99a310, type: 3}
-  - {fileID: 21300000, guid: efcb0b3556f954c4ebfdaecbe72a3a18, type: 3}
-  - {fileID: 21300000, guid: 1da8f85a2e2ca764eb775a4738b845a8, type: 3}
-  - {fileID: 21300000, guid: 52982de4b6e15724a9b40ccae651eb8e, type: 3}
-  - {fileID: 21300000, guid: 92f231ad02757724ca95e6e90a964fae, type: 3}
-  - {fileID: 21300000, guid: 6d861f19ba069004694445133d921770, type: 3}
-  - {fileID: 21300000, guid: e2cbb4bde3b09e349aa31cca8921fc55, type: 3}
-  - {fileID: 21300000, guid: 923da110d6d02bf46807e742dd514da9, type: 3}
+  - {fileID: 21300000, guid: dd72be87f41bb9746ada7e2ddcfbc264, type: 3}
+  - {fileID: 21300000, guid: 7215fe96f58a2c74fac91be4f6f8b305, type: 3}
+  - {fileID: 21300000, guid: e95b918cfb58ae840946c39e314cfa73, type: 3}
+  - {fileID: 21300000, guid: 2c31906ec72339e49b81e9658ba85b19, type: 3}
+  - {fileID: 21300000, guid: 2e240bec469dbb746acbb7de22440be4, type: 3}
+  - {fileID: 21300000, guid: 8179ab26a51046743a95123c75cd605d, type: 3}
+  - {fileID: 21300000, guid: d1e514222aa6d4d4094dab8ce51377b8, type: 3}
+  - {fileID: 21300000, guid: e7b1da5db3708b047a492adfdfae1f82, type: 3}
+  - {fileID: 21300000, guid: 21e7f914f8cefa44bbebe9b61bf8f00b, type: 3}
+  - {fileID: 21300000, guid: 3a27363147facd744b2f73a49a0211a4, type: 3}
+  - {fileID: 21300000, guid: f167906530e83ad4ab6e871810297d13, type: 3}
+  - {fileID: 21300000, guid: 3eb588709f899d343bf5778b0f966ef0, type: 3}
+  - {fileID: 21300000, guid: 0f7fb16430745124ba46ae50dd884318, type: 3}
+  - {fileID: 21300000, guid: f5ce7e41cd8045a4bb9e9eda3e0396ca, type: 3}
+  - {fileID: 21300000, guid: a9f2c50a2c77eaa4786cca6128bd0343, type: 3}
   WalkFrameRate: 30
-  JumpSprite: {fileID: 8527111519951476930, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  FallSprite: {fileID: -7490898752223310767, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
+  JumpSprites:
+  - {fileID: 21300000, guid: dd8cfd8407263524083cbb31f0c1600b, type: 3}
+  - {fileID: 21300000, guid: 982dfc09a7997ef42873ffb7ea565553, type: 3}
+  - {fileID: 21300000, guid: 93e5553a16dc3824fa8908d283ffce01, type: 3}
+  jumpFrameRate: 30
+  FallSprite: {fileID: 21300000, guid: 261e3a4c561abb24baace519e9ede6b9, type: 3}
   GrabSprite: {fileID: 6288659706726585256, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
   GreenAttackSprite: {fileID: -3831202356669062874, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
   RedAttackTransformationSprites:

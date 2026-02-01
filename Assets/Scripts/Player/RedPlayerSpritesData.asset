@@ -35,7 +35,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e2cbb4bde3b09e349aa31cca8921fc55, type: 3}
   - {fileID: 21300000, guid: 923da110d6d02bf46807e742dd514da9, type: 3}
   WalkFrameRate: 30
-  JumpSprite: {fileID: 8527111519951476930, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
+  JumpSprites: []
+  jumpFrameRate: 30
   FallSprite: {fileID: -7490898752223310767, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
   GrabSprite: {fileID: 6288659706726585256, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
   GreenAttackSprite: {fileID: -3831202356669062874, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
