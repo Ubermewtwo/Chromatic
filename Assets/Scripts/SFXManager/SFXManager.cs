@@ -42,6 +42,7 @@ public class SFXManager : MonoBehaviour
             greenMusicAudioSource.volume = 0f;
             redMusicAudioSource.volume = 0f;
             blueMusicAudioSource.volume = 0f;
+            return;
         }
 
         MaskType currentMask = player[0].CurrentMask;
