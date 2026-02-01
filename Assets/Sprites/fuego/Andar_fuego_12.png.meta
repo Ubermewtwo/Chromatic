@@ -159,7 +159,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Andar_fuego_12_0: -4025702697998064062
+      Andar_fuego_12_1: 4968907199923700608
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

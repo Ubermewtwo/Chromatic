@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tileset_planta_centro_arriba_0: -6707348087024493430
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
