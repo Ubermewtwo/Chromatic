@@ -14,6 +14,10 @@ public class PlayerSpritesData : ScriptableObject
     public Sprite GrabSprite;
     public List<Sprite> GreenAttackSprites;
     public float greenAttackFrameRate;
+
+    public List<Sprite> GreenClimbSprites;
+    public float greenClimbFrameRate;
+
     public List<Sprite> RedAttackTransformationSprites;
     public float RedAttackTransformationFrameRate;
     public List<Sprite> BlueAttackSprites;
@@ -56,6 +60,11 @@ public class PlayerSpritesData : ScriptableObject
                         return BlueAttackSprites[blueAttackIndex];
                 }
                 break;
+            case PlayerState.Climb:
+                int greenClimbIndex = (int)(time * greenClimbFrameRate);
+                if (greenClimbIndex >= GreenClimbSprites.Count)
+                    greenClimbIndex = GreenClimbSprites.Count - 1;
+                return GreenClimbSprites[greenClimbIndex];
         }
 
         Debug.LogError("Invalid PlayerState: " + state);
