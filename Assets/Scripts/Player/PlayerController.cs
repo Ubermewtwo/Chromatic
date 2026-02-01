@@ -320,7 +320,14 @@ public class PlayerController : MonoBehaviour
 
         if (isPeformingAttack)
         {
-            currentState = PlayerSpritesData.PlayerState.Attack;
+            if (CurrentMask == MaskType.Green && !isGrounded)
+            {
+                currentState = PlayerSpritesData.PlayerState.Climb;
+            }
+            else
+            {
+                currentState = PlayerSpritesData.PlayerState.Attack;
+            }
         }
         else if (isGrabbing)
         {

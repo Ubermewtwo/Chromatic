@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -59,6 +60,14 @@ public class PlayerHealth : MonoBehaviour
         Debug.LogWarning("Player has died.");
         SFXManager.Instance.PlaySFX(deathSFX);
         //Destroy(gameObject);
+        playerController.enabled = false;
+
+        DOVirtual.DelayedCall(2.0f, () =>
+        {
+            // Respawn or reload level logic here
+            UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex);
+        });
+
         this.enabled = false;
     }
 

@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -44,6 +45,9 @@ public class GreyPlayerController : MonoBehaviour
     public SpriteRenderer greySpriteRenderer;
     public PlayerSpritesData greyPlayerSpritesData;
 
+    public List<Sprite> begginingAnimationSprites = new List<Sprite>();
+    public float begginingAnimationFrameRate = 10f;
+
     [Header("SFX")]
     public AudioClipPlus walkSFX;
     public float walkSFXInterval = 0.4f;
@@ -87,6 +91,27 @@ public class GreyPlayerController : MonoBehaviour
         slipperiness = defaultSlipperiness;
         maxSpeed = defaultMaxSpeed;
         defaultGravityScale = rb.gravityScale;
+
+        GetComponent<PlayerInput>().enabled = false;
+
+        // use dotween to play beggining animation
+        DOVirtual.DelayedCall(0.1f, () =>
+        {
+            float animationDuration = begginingAnimationSprites.Count / begginingAnimationFrameRate;
+            float frameDuration = 1f / begginingAnimationFrameRate;
+            int currentFrame = 0;
+            DOVirtual.DelayedCall(frameDuration, null, true).OnStepComplete(() =>
+            {
+                if (currentFrame < begginingAnimationSprites.Count)
+                {
+                    greySpriteRenderer.sprite = begginingAnimationSprites[currentFrame];
+                    currentFrame++;
+                }
+            }).SetLoops(begginingAnimationSprites.Count, LoopType.Restart).OnComplete(() =>
+            {
+                GetComponent<PlayerInput>().enabled = true;
+            });
+        });
     }
 
     private void Update()

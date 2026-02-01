@@ -52,6 +52,14 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 8af905298bb7ee14f875f3ff27c2d5d1, type: 3}
   - {fileID: 21300000, guid: d5f0cd650e87aea45871b9bcf4f2845c, type: 3}
   greenAttackFrameRate: 60
+  GreenClimbSprites:
+  - {fileID: 21300000, guid: aa2953de0eb177c479e594c57ebfad01, type: 3}
+  - {fileID: 21300000, guid: ed912fd4191df6c4183462a3d68bdb51, type: 3}
+  - {fileID: 21300000, guid: 8d0175be1b58e9d418e13c09b36f83ae, type: 3}
+  - {fileID: 21300000, guid: 3305badb088a1e948becd25d8f4b9f09, type: 3}
+  - {fileID: 21300000, guid: b426ec3a75b03de4d9409179d650a96e, type: 3}
+  - {fileID: 21300000, guid: 5484b4762088d9041bb27d5f810ad2db, type: 3}
+  greenClimbFrameRate: 30
   RedAttackTransformationSprites:
   - {fileID: 4735375665114324730, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
   - {fileID: 7216629191016651444, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}

@@ -295,6 +295,14 @@ MonoBehaviour:
     m_Bits: 256
   greySpriteRenderer: {fileID: 227838973855052580}
   greyPlayerSpritesData: {fileID: 11400000, guid: 07fb2b0fb9e3720409dd70b75c44b1e9, type: 2}
+  begginingAnimationSprites:
+  - {fileID: 21300000, guid: a0a8b8d166e76904f81c0a26a37b2a7c, type: 3}
+  - {fileID: 21300000, guid: 91393199e356db1478c417d1a37bf300, type: 3}
+  - {fileID: 21300000, guid: 10599905e3a4e8d4fb564c2950b7e16c, type: 3}
+  - {fileID: 21300000, guid: 7a8992edfc10c7040bc79da71831bd45, type: 3}
+  - {fileID: 21300000, guid: 2e10a33e641b3cf468d98c7a592afd43, type: 3}
+  - {fileID: 21300000, guid: d2091a49395029949922151934f235d8, type: 3}
+  begginingAnimationFrameRate: 10
   walkSFX:
     AudioClip: {fileID: 0}
     Volume: 0
