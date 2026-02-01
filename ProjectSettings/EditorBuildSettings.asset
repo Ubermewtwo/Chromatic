@@ -6,8 +6,23 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 8c9cfa26abfee488c85f1582747f6a02
+    path: Assets/Scenes/Levels/Tutorials/Tutorial_Level.unity
+    guid: 8453546bb4525ad42b89f1d83fad7e51
+  - enabled: 1
+    path: Assets/Scenes/Levels/Tutorials/Tutorial_Jungla.unity
+    guid: ede194ad60b06074da2ce1cc279bb8ca
+  - enabled: 1
+    path: Assets/Scenes/Levels/Hub/FinalHub.unity
+    guid: b2cee33ec30a2f7469e4728bebbfebcd
+  - enabled: 1
+    path: Assets/Scenes/Levels/MainLevels/Jungla.unity
+    guid: 7772b95fa6d6b2f4397e2272f307cfec
+  - enabled: 1
+    path: Assets/Scenes/Levels/MainLevels/Lava.unity
+    guid: c2ce1ec24a401da40b3289ad01db4129
+  - enabled: 1
+    path: Assets/Scenes/Levels/MainLevels/Oceano.unity
+    guid: f1cde90ec90f9174dab346cf9b3f7741
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: b9efa593bed78bd42a393b5a1475a348, type: 3}
   m_UseUCBPForAssetBundles: 0
