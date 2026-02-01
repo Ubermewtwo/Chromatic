@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      fondo_fuego_0: 8867320577147462430
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
