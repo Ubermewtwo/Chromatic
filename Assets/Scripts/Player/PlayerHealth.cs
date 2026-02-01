@@ -8,6 +8,8 @@ public class PlayerHealth : MonoBehaviour
     public float damageCooldown = 1.0f;
     private float lastDamageTime = -Mathf.Infinity;
 
+    public AudioClipPlus hurtSFX;
+    public AudioClipPlus deathSFX;
 
     private PlayerController playerController;
 
@@ -29,6 +31,8 @@ public class PlayerHealth : MonoBehaviour
             return; // Still in cooldown
         }
 
+        SFXManager.Instance.PlaySFX(hurtSFX);
+
         currentHealth -= damage;
         lastDamageTime = Time.time;
         if (currentHealth <= 0)
@@ -41,6 +45,7 @@ public class PlayerHealth : MonoBehaviour
     {
         // Handle player death (e.g., respawn, game over)
         Debug.LogWarning("Player has died.");
+        SFXManager.Instance.PlaySFX(deathSFX);
         Destroy(gameObject);
     }
 
