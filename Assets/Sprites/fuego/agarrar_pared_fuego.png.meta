@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      agarrar_pared_fuego_0: 8506605952980924424
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

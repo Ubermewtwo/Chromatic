@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      idle_fuego_0: -8698563679556136621
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

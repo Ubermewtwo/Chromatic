@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      agarrar_pared_planta_0: -7040832023459346533
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

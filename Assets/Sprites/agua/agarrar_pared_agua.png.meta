@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      agarrar_pared_agua_0: -2978654869806613439
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
