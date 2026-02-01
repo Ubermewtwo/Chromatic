@@ -134,7 +134,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Andar_agua_3_0: -8939844545215954294
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
