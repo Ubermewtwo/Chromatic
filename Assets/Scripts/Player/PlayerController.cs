@@ -17,6 +17,19 @@ public class PlayerController : MonoBehaviour
         get { return unlockedMasks[currentMaskIndex]; }
     }
 
+    public void ObtainMask(MaskType maskType)
+    {
+        if (!unlockedMasks.Contains(maskType))
+        {
+            unlockedMasks.Add(maskType);
+            SetCurrentMask(unlockedMasks.Count - 1);
+        }
+        else
+        {
+            Debug.LogError("Mask already obtained: " + maskType);
+        }
+    }
+
     [Header("Movement Settings")]
     public float moveSpeed = 50f;
     public float deceleration = 50f;
@@ -114,6 +127,7 @@ public class PlayerController : MonoBehaviour
         slipperiness = defaultSlipperiness;
         maxSpeed = defaultMaxSpeed;
         defaultGravityScale = rb.gravityScale;
+        GetComponent<PlayerInput>().enabled = true;
     }
 
     private void Start()

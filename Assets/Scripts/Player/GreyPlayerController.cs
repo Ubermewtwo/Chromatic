@@ -4,14 +4,7 @@ using UnityEngine.InputSystem;
 
 public class GreyPlayerController : MonoBehaviour
 {
-    //public MaskType currentMask = MaskType.Green;
-    public List<MaskType> unlockedMasks = new List<MaskType> { MaskType.Green };
-    public int currentMaskIndex = 0;
-
-    public MaskType CurrentMask
-    {
-        get { return unlockedMasks[currentMaskIndex]; }
-    }
+    public GameObject maskedPlayerPrefab;
 
     [Header("Movement Settings")]
     public float moveSpeed = 50f;
@@ -67,6 +60,25 @@ public class GreyPlayerController : MonoBehaviour
     private Vector2 moveInput;
     private bool jumpPressed;
     private float defaultGravityScale;
+
+    public bool debugObtainMask = false;
+
+    private void OnValidate()
+    {
+        if (debugObtainMask)
+        {
+            debugObtainMask = false;
+            ObtainMask();
+        }
+    }
+
+    public void ObtainMask()
+    {
+        GetComponent<PlayerInput>().enabled = false;
+        GameObject maskedPlayer = Instantiate(maskedPlayerPrefab, transform.position, transform.rotation);
+        Camera.main.GetComponent<CameraBehavior>().target = maskedPlayer.transform;
+        Destroy(gameObject);
+    }
 
     private void Awake()
     {
@@ -200,8 +212,7 @@ public class GreyPlayerController : MonoBehaviour
             currentState = PlayerSpritesData.PlayerState.Idle;
         }
 
-        MaskType currentMask = unlockedMasks[currentMaskIndex];
-        Sprite currentSprite = greyPlayerSpritesData.GetSprite(currentState, Time.time - attackStartTime, currentMask);
+        Sprite currentSprite = greyPlayerSpritesData.GetSprite(currentState, Time.time - attackStartTime, MaskType.Green);
         greySpriteRenderer.sprite = currentSprite;
     }
 
