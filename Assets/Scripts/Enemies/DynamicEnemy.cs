@@ -23,6 +23,9 @@ public class DynamicEnemy : MonoBehaviour
     public SpriteRenderer redSpriteRenderer;
     public SpriteRenderer blueSpriteRenderer;
 
+    [Header("SFX")]
+    public AudioClipPlus deathSFX; // done
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -110,6 +113,7 @@ public class DynamicEnemy : MonoBehaviour
         if (collision.CompareTag("Lethal") && collision.gameObject.layer != LayerMask.NameToLayer("Liquid"))
         {
             Debug.Log("Enemy " + gameObject.name + " died");
+            SFXManager.Instance.PlaySFX(deathSFX);
             Destroy(gameObject);
         }
     }

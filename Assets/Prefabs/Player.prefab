@@ -228,39 +228,66 @@ MonoBehaviour:
   redPlayerSpritesData: {fileID: 11400000, guid: 81410e77e98c9194bafbec7a6fd6453d, type: 2}
   blueSpriteRenderer: {fileID: 4401519032435061038}
   bluePlayerSpritesData: {fileID: 11400000, guid: 44904fc2b09591f4c924a066eaf2df4d, type: 2}
-  walkSFX:
-    AudioClip: {fileID: 8300000, guid: 515b330633c57a148bb2ea966d312a3f, type: 3}
+  walkSFXList:
+  - AudioClip: {fileID: 8300000, guid: ecaae81c80a599e489c63313165e7f08, type: 3}
     Volume: 1
     Pitch: 1
-    PitchVariance: 0
+    PitchVariance: 0.1
+  - AudioClip: {fileID: 8300000, guid: c0137a241d8109846b9cbe3e8475bb45, type: 3}
+    Volume: 1
+    Pitch: 1
+    PitchVariance: 0.1
+  - AudioClip: {fileID: 8300000, guid: 0f7611588765eaa4b8f7878c906726ed, type: 3}
+    Volume: 1
+    Pitch: 1
+    PitchVariance: 0.1
+  - AudioClip: {fileID: 8300000, guid: ef76b9c5e3f57ef4f95a388589a90e9d, type: 3}
+    Volume: 1
+    Pitch: 1
+    PitchVariance: 0.1
   walkSFXInterval: 0.3
   jumpSFX:
-    AudioClip: {fileID: 8300000, guid: 266efa5a97418fe428f93bdeddcaf5e3, type: 3}
+    AudioClip: {fileID: 8300000, guid: 08837ab870ab32c4985c20c840cb5d64, type: 3}
     Volume: 1
     Pitch: 1
     PitchVariance: 0
   landSFX:
-    AudioClip: {fileID: 8300000, guid: caaebdb4932597049819d6b76365c9a0, type: 3}
+    AudioClip: {fileID: 8300000, guid: 58b978781183d484fb7b12a9cbcb6007, type: 3}
     Volume: 1
     Pitch: 1
     PitchVariance: 0
   grabSFX:
-    AudioClip: {fileID: 8300000, guid: ea83d41598e500941b178bc14af7d44e, type: 3}
+    AudioClip: {fileID: 8300000, guid: 862afe2d24e4c7248a16fa30b174d16e, type: 3}
     Volume: 1
     Pitch: 1
     PitchVariance: 0
   whipAttackSFX:
-    AudioClip: {fileID: 0}
+    AudioClip: {fileID: 8300000, guid: f75bab4ea950b9d44a8f75d261ca28ac, type: 3}
     Volume: 1
     Pitch: 1
     PitchVariance: 0
   groundPoundSFX:
-    AudioClip: {fileID: 0}
+    AudioClip: {fileID: 8300000, guid: 8e656ef5d5cafab4c8d25b5687916982, type: 3}
+    Volume: 1
+    Pitch: 1
+    PitchVariance: 0
+  groundPoundSmashSFX:
+    AudioClip: {fileID: 8300000, guid: 58cbe510709c5de4a8565d8f08e462f6, type: 3}
     Volume: 1
     Pitch: 1
     PitchVariance: 0
   dashSFX:
-    AudioClip: {fileID: 0}
+    AudioClip: {fileID: 8300000, guid: 4cc804e2c3c5c8d47a13346770109470, type: 3}
+    Volume: 1
+    Pitch: 1
+    PitchVariance: 0
+  maskChangeSFX:
+    AudioClip: {fileID: 8300000, guid: a94ebe5a646fbbe4db8b6df1465fc53d, type: 3}
+    Volume: 1
+    Pitch: 1
+    PitchVariance: 0
+  maskObtainedSFX:
+    AudioClip: {fileID: 8300000, guid: c5ef899dd82f9fb4b808ab426a224ead, type: 3}
     Volume: 1
     Pitch: 1
     PitchVariance: 0
@@ -429,6 +456,16 @@ MonoBehaviour:
   maxHealth: 3
   currentHealth: 0
   damageCooldown: 1
+  hurtSFX:
+    AudioClip: {fileID: 8300000, guid: 5b516074be1b7a74ebcdf9f21e00fb22, type: 3}
+    Volume: 1
+    Pitch: 1
+    PitchVariance: 0.1
+  deathSFX:
+    AudioClip: {fileID: 8300000, guid: cdecf483d32467145bf3e81348e59bc0, type: 3}
+    Volume: 1
+    Pitch: 1
+    PitchVariance: 0
 --- !u!1 &2581328442637338148
 GameObject:
   m_ObjectHideFlags: 0

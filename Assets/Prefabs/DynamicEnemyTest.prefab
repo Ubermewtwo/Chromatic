@@ -702,6 +702,11 @@ MonoBehaviour:
   greenSpriteRenderer: {fileID: 3162791623730603285}
   redSpriteRenderer: {fileID: 4650622530083679812}
   blueSpriteRenderer: {fileID: 4286118095720495191}
+  deathSFX:
+    AudioClip: {fileID: 8300000, guid: f5986e45453b3a9438125520ae90e169, type: 3}
+    Volume: 1
+    Pitch: 1
+    PitchVariance: 0.1
 --- !u!1 &8117359542231059501
 GameObject:
   m_ObjectHideFlags: 0

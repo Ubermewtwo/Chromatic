@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
         {
             unlockedMasks.Add(maskType);
             SetCurrentMask(unlockedMasks.Count - 1);
+            SFXManager.Instance.PlaySFX(maskObtainedSFX);
         }
         else
         {
@@ -102,15 +103,22 @@ public class PlayerController : MonoBehaviour
     private PlayerSpritesData currentPlayerSpritesData;
 
     [Header("SFX")]
-    public AudioClipPlus walkSFX;
+    public List<AudioClipPlus> walkSFXList; // in progress
     public float walkSFXInterval = 0.4f;
     private float walkSFXTimer = 0f;
-    public AudioClipPlus jumpSFX;
-    public AudioClipPlus landSFX;
-    public AudioClipPlus grabSFX;
-    public AudioClipPlus whipAttackSFX;
-    public AudioClipPlus groundPoundSFX;
-    public AudioClipPlus dashSFX;
+    public AudioClipPlus jumpSFX; // done
+    public AudioClipPlus landSFX; // done
+    public AudioClipPlus grabSFX; // done
+    public AudioClipPlus whipAttackSFX; // done
+    // player whip climb sound
+    public AudioClipPlus groundPoundSFX; // done
+    public AudioClipPlus groundPoundSmashSFX; // done
+    public AudioClipPlus dashSFX; // done
+
+    // mask change sound
+    public AudioClipPlus maskChangeSFX;
+    // mask obtained
+    public AudioClipPlus maskObtainedSFX;
 
     private Rigidbody2D rb;
     private BoxCollider2D playerCollider;
@@ -132,6 +140,7 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        SFXManager.Instance.PlaySFX(maskObtainedSFX);
         SetCurrentMask(currentMaskIndex);
     }
 
@@ -379,7 +388,7 @@ public class PlayerController : MonoBehaviour
 
                 if (walkSFXTimer <= 0f && Mathf.Abs(rb.linearVelocityX) > 0.1f)
                 {
-                    SFXManager.Instance.PlaySFX(walkSFX);
+                    SFXManager.Instance.PlayRandomSFX(walkSFXList);
                     walkSFXTimer = walkSFXInterval;
                 }
                 else
@@ -549,6 +558,7 @@ public class PlayerController : MonoBehaviour
     {
         MaskTransitionBehaviour.Instance.transform.parent.position = transform.position;
         currentMaskIndex = newMaskIndex;
+        SFXManager.Instance.PlaySFX(maskChangeSFX);
         switch (unlockedMasks[newMaskIndex])
         {
             case MaskType.Green:
@@ -721,6 +731,7 @@ public class PlayerController : MonoBehaviour
                 if (platform != null)
                 {
                     platform.Break();
+                    SFXManager.Instance.PlaySFX(groundPoundSmashSFX);
                 }
 
                 groundPoundHitbox.gameObject.SetActive(false);
@@ -737,7 +748,7 @@ public class PlayerController : MonoBehaviour
         StopAllCoroutines();
         rb.gravityScale = defaultGravityScale;
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpVelocity * 2f);
-        // other logic
+        SFXManager.Instance.PlaySFX(jumpSFX);
     }
 
     public void Knockback(Vector3 origin, float force)
