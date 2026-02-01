@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 using DG.Tweening;
 using System.Collections.Generic;
 using Chromatic;
+using UnityEngine.Events;
+using System;
 
 [DefaultExecutionOrder(100)]
 public class PlayerController : MonoBehaviour
@@ -11,6 +13,8 @@ public class PlayerController : MonoBehaviour
     //public MaskType currentMask = MaskType.Green;
     public List<MaskType> unlockedMasks = new List<MaskType> { MaskType.Green };
     public int currentMaskIndex = 0;
+
+    [NonSerialized] public UnityEvent<MaskType> OnMaskChanged = new UnityEvent<MaskType>();
 
     public MaskType CurrentMask
     {
@@ -559,6 +563,9 @@ public class PlayerController : MonoBehaviour
         MaskTransitionBehaviour.Instance.transform.parent.position = transform.position;
         currentMaskIndex = newMaskIndex;
         SFXManager.Instance.PlaySFX(maskChangeSFX);
+
+        OnMaskChanged?.Invoke(unlockedMasks[currentMaskIndex]);
+
         switch (unlockedMasks[newMaskIndex])
         {
             case MaskType.Green:
@@ -781,6 +788,14 @@ public class PlayerController : MonoBehaviour
                 rb.gravityScale = defaultGravityScale;
                 dashHitbox.gameObject.SetActive(false);
                 yield break;
+            }
+
+            if (rb.linearVelocity.y == 0f)
+            {
+                Debug.Log("Dash interrupted by fail safe.");
+                isPeformingAttack = false;
+                rb.gravityScale = defaultGravityScale;
+                dashHitbox.gameObject.SetActive(false);
             }
 
             float distanceTravelled = Mathf.Abs(transform.position.x - initialXPosition);
