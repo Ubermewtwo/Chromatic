@@ -5,6 +5,7 @@ using DG.Tweening;
 using System.Collections.Generic;
 using Chromatic;
 
+[DefaultExecutionOrder(100)]
 public class PlayerController : MonoBehaviour
 {
     //public MaskType currentMask = MaskType.Green;
@@ -56,10 +57,12 @@ public class PlayerController : MonoBehaviour
 
     //Volcano
     public float groundPoundDelay = 0.3f;
+    public BoxCollider2D groundPoundHitbox;
 
     //Ocean
     public float dashSpeed = 15f;
     public float dashDistance = 5f;
+    public BoxCollider2D dashHitbox;
     public bool canDash = true;
 
     //All
@@ -517,6 +520,8 @@ public class PlayerController : MonoBehaviour
 
     public void OnSwitchMask(InputAction.CallbackContext context)
     {
+        if (unlockedMasks.Count < 2) return;
+
         if (context.started && MaskTransitionBehaviour.Instance.CanRestart)
         {
             int value = (int)context.ReadValue<float>();
@@ -624,6 +629,7 @@ public class PlayerController : MonoBehaviour
                             SFXManager.Instance.PlaySFX(groundPoundSFX);
                             rb.linearVelocity = Vector2.zero;
                             rb.gravityScale = 0f;
+                            groundPoundHitbox.gameObject.SetActive(true);
                             StartCoroutine(GroundPound());
                         }
                         break;
@@ -638,6 +644,8 @@ public class PlayerController : MonoBehaviour
                         rb.linearVelocity = Vector2.zero;
                         rb.gravityScale = 0f;
                         float dashDirection = moveInput.x != 0 ? Mathf.Sign(moveInput.x) : (currentSpriteRenderer.flipX ? -1f : 1f);
+                        dashHitbox.gameObject.SetActive(true);
+                        dashHitbox.GetComponentInChildren<SpriteRenderer>().flipX = dashDirection == -1f;
                         StartCoroutine(Dash(dashDirection));
                         break;
                 }
@@ -691,7 +699,6 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Landed from ground pound.");
                 rb.gravityScale = defaultGravityScale;
                 isPeformingAttack = false;
-                // break the ground here if needed
 
                 GameObject groundObject = Physics2D.OverlapBox(groundCheck.bounds.center, groundCheck.bounds.size, 0f, groundLayer)?.gameObject;
 
@@ -701,6 +708,8 @@ public class PlayerController : MonoBehaviour
                 {
                     platform.Break();
                 }
+
+                groundPoundHitbox.gameObject.SetActive(false);
 
                 yield break;
             }
@@ -715,6 +724,12 @@ public class PlayerController : MonoBehaviour
         rb.gravityScale = defaultGravityScale;
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpVelocity * 2f);
         // other logic
+    }
+
+    public void Knockback(Vector3 origin, float force)
+    {
+        Vector3 knockbackDirection = (transform.position - origin).normalized;
+        rb.linearVelocity = new Vector2(knockbackDirection.x * force, knockbackDirection.y * force);
     }
 
     private IEnumerator Dash(float dashDirection)
@@ -739,6 +754,7 @@ public class PlayerController : MonoBehaviour
                 Debug.Log("Dash interrupted by wall.");
                 isPeformingAttack = false;
                 rb.gravityScale = defaultGravityScale;
+                dashHitbox.gameObject.SetActive(false);
                 yield break;
             }
 
@@ -756,6 +772,7 @@ public class PlayerController : MonoBehaviour
                 {
                     rb.linearVelocity = new Vector2(dashDirection * maxAirSpeed, 0f);
                 }
+                dashHitbox.gameObject.SetActive(false);
                 yield break;
             }
             else
