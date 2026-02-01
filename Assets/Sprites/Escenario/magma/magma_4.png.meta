@@ -144,6 +144,32 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -534,7 +560,24 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      magma_4_0: 218887877524366380
+      magma_4_1: 5976898457373503101
+      magma_4_10: -507322535101103957
+      magma_4_11: -3269900828261827077
+      magma_4_12: 987236499363475119
+      magma_4_13: -6662724374698133699
+      magma_4_14: -8002959873547186400
+      magma_4_15: 992403245967472693
+      magma_4_16: 4557295138401646729
+      magma_4_2: 4475624079091016306
+      magma_4_3: -3847463489231942344
+      magma_4_4: -321202580126908101
+      magma_4_5: -4240452562309892756
+      magma_4_6: -6976029308601446958
+      magma_4_7: -455921334024220374
+      magma_4_8: -1471383598150923082
+      magma_4_9: -686085940990500627
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
