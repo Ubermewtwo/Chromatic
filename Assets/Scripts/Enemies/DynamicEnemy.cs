@@ -51,14 +51,22 @@ public class DynamicEnemy : MonoBehaviour
 
         if (movingRight)
         {
-            if ((rightWallHit != null || rightEdgeHit == null) && rightEdgeHit != leftEdgeHit)
+            bool wallInFront = rightWallHit != null;
+            bool nearTheEdge = rightEdgeHit == null;
+            bool swimming = rightEdgeHit == leftEdgeHit;
+
+            if (wallInFront || (nearTheEdge && !swimming))
             {
                 movingRight = false;
             }
         }
         else
         {
-            if ((leftWallHit != null || leftEdgeHit == null) && rightEdgeHit != leftEdgeHit)
+            bool wallInFront = leftWallHit != null;
+            bool nearTheEdge = leftEdgeHit == null;
+            bool swimming = rightEdgeHit == leftEdgeHit;
+
+            if (wallInFront || (nearTheEdge && !swimming))
             {
                 movingRight = true;
             }
