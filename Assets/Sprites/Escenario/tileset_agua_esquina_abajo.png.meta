@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tileset_agua_esquina_abajo_0: -8274231262078974258
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

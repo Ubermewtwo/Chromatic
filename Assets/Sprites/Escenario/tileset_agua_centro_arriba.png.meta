@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      tileset_agua_centro_arriba_0: -264263132080356298
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
