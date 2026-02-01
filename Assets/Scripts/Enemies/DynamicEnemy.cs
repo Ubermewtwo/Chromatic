@@ -12,7 +12,10 @@ public class DynamicEnemy : MonoBehaviour
     public BoxCollider2D leftEdgeCheck;
 
     public LayerMask groundLayer;
+    public LayerMask liquidLayer;
     private Rigidbody2D rb;
+
+    public float damageKnockbackForce = 5f;
 
     public EnemySpritesData enemySpritesData;
 
@@ -38,20 +41,21 @@ public class DynamicEnemy : MonoBehaviour
     private void FixedUpdate()
     {
         // Change direction if needed
+        GameObject rightWallHit = Physics2D.OverlapBox(rightWallCheck.bounds.center, rightWallCheck.bounds.size, 0f, groundLayer)?.gameObject;
+        GameObject rightEdgeHit = Physics2D.OverlapBox(rightEdgeCheck.bounds.center, rightEdgeCheck.bounds.size, 0f, groundLayer)?.gameObject;
+        GameObject leftWallHit = Physics2D.OverlapBox(leftWallCheck.bounds.center, leftWallCheck.bounds.size, 0f, groundLayer)?.gameObject;
+        GameObject leftEdgeHit = Physics2D.OverlapBox(leftEdgeCheck.bounds.center, leftEdgeCheck.bounds.size, 0f, groundLayer)?.gameObject;
+
         if (movingRight)
         {
-            GameObject rightWallHit = Physics2D.OverlapBox(rightWallCheck.bounds.center, rightWallCheck.bounds.size, 0f, groundLayer)?.gameObject;
-            GameObject rightEdgeHit = Physics2D.OverlapBox(rightEdgeCheck.bounds.center, rightEdgeCheck.bounds.size, 0f, groundLayer)?.gameObject;
-            if (rightWallHit != null || rightEdgeHit == null)
+            if ((rightWallHit != null || rightEdgeHit == null) && rightEdgeHit != leftEdgeHit)
             {
                 movingRight = false;
             }
         }
         else
         {
-            GameObject leftWallHit = Physics2D.OverlapBox(leftWallCheck.bounds.center, leftWallCheck.bounds.size, 0f, groundLayer)?.gameObject;
-            GameObject leftEdgeHit = Physics2D.OverlapBox(leftEdgeCheck.bounds.center, leftEdgeCheck.bounds.size, 0f, groundLayer)?.gameObject;
-            if (leftWallHit != null || leftEdgeHit == null)
+            if ((leftWallHit != null || leftEdgeHit == null) && rightEdgeHit != leftEdgeHit)
             {
                 movingRight = true;
             }
@@ -88,16 +92,22 @@ public class DynamicEnemy : MonoBehaviour
         {
             // Damage the player
             PlayerHealth playerHealth = collision.gameObject.GetComponent<PlayerHealth>();
+            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             if (playerHealth != null)
             {
                 playerHealth.TakeDamage(1);
+            }
+            if (playerController != null)
+            {
+                playerController.Knockback(transform.position, damageKnockbackForce);
             }
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Lethal"))
+        // if tag is lethal and collision is not with liquid layer
+        if (collision.CompareTag("Lethal") && collision.gameObject.layer != LayerMask.NameToLayer("Liquid"))
         {
             Debug.Log("Enemy " + gameObject.name + " died");
             Destroy(gameObject);

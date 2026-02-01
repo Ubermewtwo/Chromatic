@@ -13,10 +13,7 @@ MonoBehaviour:
   m_Name: RedPlayerSpritesData
   m_EditorClassIdentifier: 
   IdleSprites:
-  - {fileID: 8633881525917383573, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  - {fileID: -1771866121167276815, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  - {fileID: 2091829175261615561, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
-  - {fileID: 756911166660455246, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
+  - {fileID: 21300000, guid: 991885b880bf2314885e9dc8b200cb13, type: 3}
   IdleFrameRate: 5
   WalkSprites:
   - {fileID: 21300000, guid: 991885b880bf2314885e9dc8b200cb13, type: 3}
@@ -35,9 +32,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: e2cbb4bde3b09e349aa31cca8921fc55, type: 3}
   - {fileID: 21300000, guid: 923da110d6d02bf46807e742dd514da9, type: 3}
   WalkFrameRate: 30
-  JumpSprites: []
+  JumpSprites:
+  - {fileID: 21300000, guid: 0d94f3a8ffa95344fb694934a7acafb0, type: 3}
+  - {fileID: 21300000, guid: 19ec8ee341052374db3ef8d35ca48216, type: 3}
+  - {fileID: 21300000, guid: 71aa14ea040c378408b1a326fb82dec6, type: 3}
   jumpFrameRate: 30
-  FallSprite: {fileID: -7490898752223310767, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
+  FallSprite: {fileID: 21300000, guid: cd7c6c97aeb074a40997a7464bf0537f, type: 3}
   GrabSprite: {fileID: 6288659706726585256, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
   GreenAttackSprite: {fileID: -3831202356669062874, guid: a91e1a0e39cf83146b1f654c2ad2e068, type: 3}
   RedAttackTransformationSprites:

@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46afa52f2f6d34245b449e68b989ce5b, type: 3}
+  m_Name: GreySpritesData
+  m_EditorClassIdentifier: 
+  IdleSprites:
+  - {fileID: 21300000, guid: c06d15f9815e9bd48975a2d833e34b6c, type: 3}
+  IdleFrameRate: 5
+  WalkSprites:
+  - {fileID: 21300000, guid: c06d15f9815e9bd48975a2d833e34b6c, type: 3}
+  - {fileID: 21300000, guid: 3db91847133d8c14eb919503c7687a5b, type: 3}
+  - {fileID: 21300000, guid: 8ced7f7d2378c08478c2ecef402776f0, type: 3}
+  - {fileID: 21300000, guid: c12bc431f8c0fc2429bab15fdaf44bc8, type: 3}
+  - {fileID: 21300000, guid: b52b9b03a65d4fa44bab7ba746b6a16f, type: 3}
+  - {fileID: 21300000, guid: 88bdf290398f36442bedcbf70cc05bb5, type: 3}
+  - {fileID: 21300000, guid: ace128f2151c89b47863e5511e5c484c, type: 3}
+  - {fileID: 21300000, guid: 853a9cc38013a0f4288d7bce0c0e324d, type: 3}
+  - {fileID: 21300000, guid: 64c6a1dfa009dfa4a84e9627735505a0, type: 3}
+  - {fileID: 21300000, guid: a146b15640aa4594c8a3e45ac3ce924e, type: 3}
+  - {fileID: 21300000, guid: 212d0d1a7acc12744844b58e79708403, type: 3}
+  - {fileID: 21300000, guid: 5a782e8d1f0150940973f24b979a7017, type: 3}
+  - {fileID: 21300000, guid: a58b074976646604086ad2bfd0f7d012, type: 3}
+  - {fileID: 21300000, guid: 3e4924f623219bb40a267c4293418272, type: 3}
+  - {fileID: 21300000, guid: 3109fecf0ee08c747ad2a82585ef1711, type: 3}
+  WalkFrameRate: 30
+  JumpSprites:
+  - {fileID: 21300000, guid: b2b12d0303067c143aa937432c47cae7, type: 3}
+  - {fileID: 21300000, guid: f3b1e5a24e8ea384498a48d4027f1538, type: 3}
+  - {fileID: 21300000, guid: 571f412593e53ae4d9b327f77a92c082, type: 3}
+  jumpFrameRate: 30
+  FallSprite: {fileID: 21300000, guid: d59c8e178f52ef7439d07d72eda816ba, type: 3}
+  GrabSprite: {fileID: 0}
+  GreenAttackSprite: {fileID: 0}
+  RedAttackTransformationSprites: []
+  RedAttackTransformationFrameRate: 0
+  BlueAttackSprites: []
+  BlueAttackFrameRate: 0
